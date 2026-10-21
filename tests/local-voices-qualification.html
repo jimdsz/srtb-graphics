@@ -1,0 +1,7 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Recette locale — décodage des voix</title>
+<style>body{font:16px system-ui;background:#151714;color:#f7f7f0;margin:32px;max-width:1000px}input,button{font:inherit;padding:14px}pre{white-space:pre-wrap;overflow-wrap:anywhere}#status{padding:16px;border:1px solid #77816c}</style></head>
+<body><h1>Décodage local des voix</h1><p>Contrôle de fichiers choisis, sans téléversement ni attestation des paroles. Seuls les résultats chiffrés sont enregistrés sur ce serveur de test local.</p>
+<label>Choisir les MP3 du dossier voix <input id="files" type="file" accept="audio/mpeg,.mp3" multiple></label>
+<button id="run" disabled>Contrôler les fichiers sélectionnés</button><p id="status" role="status">En attente des fichiers.</p><pre id="result"></pre>
+<script type="module" src="./local-voices-qualification.ts"></script></body></html>

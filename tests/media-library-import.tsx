@@ -1,0 +1,11 @@
+import {createRoot} from 'react-dom/client';
+import MediaLibrary from '../src/studio/MediaLibrary';
+import {api} from '../src/studio/api';
+import '../src/studio/studio.css';
+import '../src/studio/theme.css';
+import '../src/studio/responsive.css';
+import '../src/studio/workbench.css';
+const evidence={projectActions:0,refreshes:0};
+Object.assign(window,{mediaLibraryEvidence:evidence});
+api.transfers=async()=>[];
+createRoot(document.getElementById('root')!).render(<main style={{padding:24,maxWidth:1200,margin:'auto'}}><MediaLibrary media={[]} refresh={async()=>{evidence.refreshes++;}} onOpenProjects={()=>{evidence.projectActions++;}}/></main>);

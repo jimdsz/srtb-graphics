@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="data:,"><title>Logo BA — masque / polygone</title>
+<style>body{margin:24px;font:15px system-ui;background:#17202a;color:white}button{font:inherit;padding:10px 16px}pre{white-space:pre-wrap;overflow-wrap:anywhere}.comparisons{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}figure{margin:12px 0}canvas{width:100%;height:auto;background:#333}figcaption{margin-bottom:6px}#native-scene,#polygon-probe{position:absolute;left:-20000px;top:0;width:1920px;height:1080px}#native-scene>*{display:block;width:1920px;height:1080px}@media(max-width:700px){.comparisons{grid-template-columns:1fr}}</style></head>
+<body><h1>Logo BA — masque actuel / polygone exact</h1>
+<p>Pose native 1780 / sortie 38 / logo 10. Seuls le chemin du V et son masque de soustraction varient. BÉNIN, T, parents, matrices, couleurs et composition restent identiques.</p>
+<p>Mesures descriptives face au PNG indépendant After Effects. Aucun seuil ajouté ou modifié. Le FAIL 68/64 du banc isolé reste FAIL.</p>
+<button id="run">Comparer A / B et conserver les preuves</button><p id="status" role="status">Prêt. Conservation automatique uniquement sur http://127.0.0.1:5192.</p>
+<div id="comparisons"></div><pre id="result"></pre><div id="native-scene" aria-hidden="true"></div><div id="polygon-probe" aria-hidden="true"></div>
+<script type="module" src="./ae-logo-mask-ab.bundle.js"></script></body></html>

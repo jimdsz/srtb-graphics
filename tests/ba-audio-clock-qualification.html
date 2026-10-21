@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="fr">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recette audio BA v2 · horloge réelle</title>
+<style>body{font:16px system-ui;line-height:1.5;max-width:1050px;margin:32px auto;padding:0 20px;background:#151815;color:#eee}button{font:inherit;padding:12px 18px;margin:4px}button:disabled{opacity:.5}pre{white-space:pre-wrap;overflow-wrap:anywhere;border:1px solid #667;padding:16px}strong{color:#fff}</style>
+<h1>Audio BA v2 · conservation du passage complet</h1>
+<p>Signal synthétique stéréo de 3,6 secondes. Aucun fichier utilisateur, aucun sélecteur, aucune parole. Capture réelle avant gain ou après volume et fondu selon le choix ci-dessous, sortie volontairement silencieuse.</p>
+<p>Chaque parcours dure environ 24 secondes : contextes demandés et vérifiés à 44 100 puis 48 000 Hz, IN puis OUT, avec un blocage JavaScript de 120 ms traversant chaque départ vocal. Gardez cet onglet visible.</p>
+<p><strong>Portée :</strong> conservation du PCM au point de mesure choisi et commandes du scheduler. Le contrôle après gain utilise une référence hors ligne indépendante. Ce banc ne valide ni l’écoute sur haut-parleurs, ni le mix final, ni le contenu éditorial d’une voix.</p>
+<button id="run" type="button">Tester le module BA v2 · ~24 s</button>
+<button id="portable" type="button">Tester l’audio HTML portable · ~24 s</button>
+<button id="cancel" type="button" disabled>Annuler</button>
+<p><label><input id="post-gain" type="checkbox"> Mesurer après le volume et le fondu — branche unique, sans dérivation des sources</label></p>
+<p id="status" role="status" aria-live="polite">Prêt — serveur local 127.0.0.1:5198 requis.</p>
+<pre id="result" aria-label="Métriques et erreurs"></pre>
+<script type="module" src="./ba-audio-clock-qualification.ts"></script>
+</html>

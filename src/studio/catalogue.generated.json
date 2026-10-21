@@ -1,0 +1,2350 @@
+[
+  {
+    "id": "BTV_BA_1P",
+    "name": "Bande-annonce · un programme, trois dates",
+    "description": "Titres sur une à trois lignes, dates de diffusion, extraits vidéo, pistes audio, couleurs de la charte et sortie automatique.",
+    "version": "1.0.3",
+    "libraryVersion": "1.7.0",
+    "category": "Bandes-annonces",
+    "module": "/library/v1.7.0/BTV_BA_1P/graphic.mjs",
+    "preview": "/library/v1.7.0/BTV_BA_1P/preview.html",
+    "fields": {
+      "_thematique": {
+        "type": "string",
+        "title": "Thématique",
+        "default": "magazine",
+        "x-section": "Éditorial"
+      },
+      "_titre_ligne_1": {
+        "type": "string",
+        "title": "Titre — ligne1",
+        "default": "L’Islam",
+        "x-section": "Éditorial"
+      },
+      "_titre_ligne_2": {
+        "type": "string",
+        "title": "Titre — ligne2",
+        "default": "en Partage",
+        "x-section": "Éditorial"
+      },
+      "_titre_ligne_3": {
+        "type": "string",
+        "title": "Titre — ligne3",
+        "default": "",
+        "x-section": "Éditorial",
+        "description": "Ligne vide : variante1/2 lignes. Ligne renseignée : vrai gabarit3 lignes, corps et carton, avec réserve pour accents."
+      },
+      "_jour_1": {
+        "type": "string",
+        "title": "Diffusion1 — jour",
+        "default": "vendredi",
+        "x-section": "Dates de diffusion"
+      },
+      "_heure_1": {
+        "type": "string",
+        "title": "Diffusion1 — heure",
+        "default": "14h00",
+        "x-section": "Dates de diffusion"
+      },
+      "_jour_2": {
+        "type": "string",
+        "title": "Diffusion2 — jour",
+        "default": "vendredi",
+        "x-section": "Dates de diffusion"
+      },
+      "_heure_2": {
+        "type": "string",
+        "title": "Diffusion2 — heure",
+        "default": "20h35",
+        "x-section": "Dates de diffusion"
+      },
+      "_jour_3": {
+        "type": "string",
+        "title": "Diffusion3 — jour",
+        "default": "",
+        "x-section": "Dates de diffusion"
+      },
+      "_heure_3": {
+        "type": "string",
+        "title": "Diffusion3 — heure",
+        "default": "",
+        "x-section": "Dates de diffusion"
+      },
+      "_sous_titre_pack": {
+        "type": "string",
+        "title": "Sous-titre du carton",
+        "default": "LES SYMBOLES DANS LA RELIGION",
+        "x-section": "Éditorial"
+      },
+      "_sous_titre_visible": {
+        "type": "boolean",
+        "title": "Afficher le sous-titre",
+        "default": true,
+        "x-section": "Éditorial"
+      },
+      "_credit_pack": {
+        "type": "string",
+        "title": "Crédit / complément",
+        "default": "Rôle et importance de l’imam",
+        "x-section": "Éditorial"
+      },
+      "_credit_visible": {
+        "type": "boolean",
+        "title": "Afficher le crédit",
+        "default": false,
+        "x-section": "Éditorial"
+      },
+      "_inedit_visible": {
+        "type": "boolean",
+        "title": "Afficher INÉDIT",
+        "default": false,
+        "x-section": "Options graphiques"
+      },
+      "_inedit_label": {
+        "type": "string",
+        "title": "Libellé inédit",
+        "default": "INÉDIT",
+        "x-section": "Options graphiques"
+      },
+      "_sponsor_visible": {
+        "type": "boolean",
+        "title": "Afficher le sponsor",
+        "default": false,
+        "x-section": "Options graphiques"
+      },
+      "_sponsor_original": {
+        "type": "boolean",
+        "title": "Logos sponsor d’origine",
+        "default": true,
+        "x-section": "Options graphiques"
+      },
+      "_sponsor_url": {
+        "type": "string",
+        "title": "Logo sponsor personnalisé",
+        "default": "lib/media/sponsor.png",
+        "x-section": "Options graphiques",
+        "x-control": "image"
+      },
+      "_sponsor_label_visible": {
+        "type": "boolean",
+        "title": "Afficher la mention de participation",
+        "default": false,
+        "x-section": "Options graphiques"
+      },
+      "_sponsor_label": {
+        "type": "string",
+        "title": "Mention de participation",
+        "default": "Avec la participation de",
+        "x-section": "Options graphiques"
+      },
+      "_mentions_visible": {
+        "type": "boolean",
+        "title": "Afficher la signalétique source",
+        "default": false,
+        "x-section": "Options graphiques"
+      },
+      "_couleur_sortie": {
+        "type": "string",
+        "title": "Couleur de sortie",
+        "default": "vert",
+        "x-section": "Couleurs de la charte",
+        "enum": [
+          "vert",
+          "jaune",
+          "rouge"
+        ]
+      },
+      "_couleur_thematique": {
+        "type": "string",
+        "title": "Couleur de thématique",
+        "default": "or",
+        "x-section": "Couleurs de la charte",
+        "enum": [
+          "or",
+          "vert",
+          "rouge"
+        ]
+      },
+      "_out_mode": {
+        "type": "string",
+        "title": "Déclenchement OUT",
+        "default": "duration",
+        "x-section": "Sortie automatique",
+        "enum": [
+          "duration",
+          "media_end",
+          "manual"
+        ],
+        "x-enumLabels": {
+          "duration": "Après une durée",
+          "media_end": "Fin des extraits du corps",
+          "manual": "Grille / bouton OUT"
+        }
+      },
+      "_out_duration_seconds": {
+        "type": "number",
+        "title": "Durée avant OUT, entrée incluse (s)",
+        "default": 64.8,
+        "x-section": "Sortie automatique",
+        "minimum": 7.6,
+        "maximum": 86400,
+        "description": "OUT complet de8,12s ensuite. La mise à jour d’un texte ne réinitialise pas le compte à rebours."
+      },
+      "_media_intro_url": {
+        "type": "string",
+        "title": "Fichier",
+        "default": "lib/media/prepared/native-v102/slow-25b341c2aeb35dc28530.mp4",
+        "x-section": "Média — Introduction",
+        "x-control": "media"
+      },
+      "_media_intro_start_seconds": {
+        "type": "number",
+        "title": "Point IN source (s)",
+        "default": 0,
+        "x-section": "Média — Introduction",
+        "minimum": 0,
+        "maximum": 86400,
+        "description": "Secondes source, arrondies à1/25s. OUT=0 sélectionne la fin de la vidéo. Image : IN=0 et OUT=durée positive."
+      },
+      "_media_intro_end_seconds": {
+        "type": "number",
+        "title": "Point OUT source (s)",
+        "default": 5.6,
+        "x-section": "Média — Introduction",
+        "minimum": 0,
+        "maximum": 86400,
+        "description": "Secondes source, arrondies à1/25s. OUT=0 sélectionne la fin de la vidéo. Image : IN=0 et OUT=durée positive."
+      },
+      "_media_intro_sequence": {
+        "type": "string",
+        "title": "Liste de passages",
+        "default": "[]",
+        "x-section": "Média — Introduction",
+        "x-control": "sequence",
+        "description": "Liste de20 passages maximum. Chaque objet comporte url,start,end ; l’ordre est celui de lecture. Pour une image, start=0 et end=durée."
+      },
+      "_media_intro_loop": {
+        "type": "boolean",
+        "title": "Boucler la liste",
+        "default": false,
+        "x-section": "Média — Introduction"
+      },
+      "_media_intro_rate": {
+        "type": "number",
+        "title": "Vitesse",
+        "default": 1,
+        "x-section": "Média — Introduction",
+        "minimum": 0.0625,
+        "maximum": 4,
+        "description": "Les vidéos intro/carton fournies contiennent déjà le ralenti natif : les lire à 1×. Une vitesse < 1 sur une nouvelle vidéo ne crée pas d’images intermédiaires. Utiliser la préparation hors antenne pour un ralenti fluide."
+      },
+      "_media_intro_fit": {
+        "type": "string",
+        "title": "Cadrage",
+        "default": "cover",
+        "x-section": "Média — Introduction",
+        "enum": [
+          "cover",
+          "contain"
+        ]
+      },
+      "_media_intro_color_space": {
+        "type": "string",
+        "title": "Colorimétrie de la source",
+        "default": "auto",
+        "x-section": "Média — Introduction",
+        "enum": [
+          "auto",
+          "srgb",
+          "rec709_gamma24"
+        ],
+        "x-enumLabels": {
+          "auto": "Source native : vidéo Rec.709 / image sRGB",
+          "srgb": "sRGB, sans conversion",
+          "rec709_gamma24": "Rec.709 gamma2,4 → espace AE/sRGB"
+        },
+        "description": "Auto reproduit l’interprétation du projet source. Choisir sRGB pour une vidéo déjà convertie. Sources SDR uniquement ; aucune détection HDR automatique."
+      },
+      "_media_intro_audio_enabled": {
+        "type": "boolean",
+        "title": "Son du média",
+        "default": false,
+        "x-section": "Média — Introduction"
+      },
+      "_media_intro_volume": {
+        "type": "number",
+        "title": "Volume du média",
+        "default": 1,
+        "x-section": "Média — Introduction",
+        "minimum": 0,
+        "maximum": 1
+      },
+      "_media_body_url": {
+        "type": "string",
+        "title": "Fichier",
+        "default": "lib/media/programme.mp4",
+        "x-section": "Média — Corps de la BA",
+        "x-control": "media"
+      },
+      "_media_body_start_seconds": {
+        "type": "number",
+        "title": "Point IN source (s)",
+        "default": 3,
+        "x-section": "Média — Corps de la BA",
+        "minimum": 0,
+        "maximum": 86400,
+        "description": "Secondes source, arrondies à1/25s. OUT=0 sélectionne la fin de la vidéo. Image : IN=0 et OUT=durée positive."
+      },
+      "_media_body_end_seconds": {
+        "type": "number",
+        "title": "Point OUT source (s)",
+        "default": 64.8,
+        "x-section": "Média — Corps de la BA",
+        "minimum": 0,
+        "maximum": 86400,
+        "description": "Secondes source, arrondies à1/25s. OUT=0 sélectionne la fin de la vidéo. Image : IN=0 et OUT=durée positive."
+      },
+      "_media_body_sequence": {
+        "type": "string",
+        "title": "Liste de passages",
+        "default": "[]",
+        "x-section": "Média — Corps de la BA",
+        "x-control": "sequence",
+        "description": "Liste de20 passages maximum. Chaque objet comporte url,start,end ; l’ordre est celui de lecture. Pour une image, start=0 et end=durée."
+      },
+      "_media_body_loop": {
+        "type": "boolean",
+        "title": "Boucler la liste",
+        "default": false,
+        "x-section": "Média — Corps de la BA"
+      },
+      "_media_body_rate": {
+        "type": "number",
+        "title": "Vitesse",
+        "default": 1,
+        "x-section": "Média — Corps de la BA",
+        "minimum": 0.0625,
+        "maximum": 4,
+        "description": "Les vidéos intro/carton fournies contiennent déjà le ralenti natif : les lire à 1×. Une vitesse < 1 sur une nouvelle vidéo ne crée pas d’images intermédiaires. Utiliser la préparation hors antenne pour un ralenti fluide."
+      },
+      "_media_body_fit": {
+        "type": "string",
+        "title": "Cadrage",
+        "default": "cover",
+        "x-section": "Média — Corps de la BA",
+        "enum": [
+          "cover",
+          "contain"
+        ]
+      },
+      "_media_body_color_space": {
+        "type": "string",
+        "title": "Colorimétrie de la source",
+        "default": "auto",
+        "x-section": "Média — Corps de la BA",
+        "enum": [
+          "auto",
+          "srgb",
+          "rec709_gamma24"
+        ],
+        "x-enumLabels": {
+          "auto": "Source native : vidéo Rec.709 / image sRGB",
+          "srgb": "sRGB, sans conversion",
+          "rec709_gamma24": "Rec.709 gamma2,4 → espace AE/sRGB"
+        },
+        "description": "Auto reproduit l’interprétation du projet source. Choisir sRGB pour une vidéo déjà convertie. Sources SDR uniquement ; aucune détection HDR automatique."
+      },
+      "_media_body_audio_enabled": {
+        "type": "boolean",
+        "title": "Son du média",
+        "default": true,
+        "x-section": "Média — Corps de la BA"
+      },
+      "_media_body_volume": {
+        "type": "number",
+        "title": "Volume du média",
+        "default": 1,
+        "x-section": "Média — Corps de la BA",
+        "minimum": 0,
+        "maximum": 1
+      },
+      "_media_pack_url": {
+        "type": "string",
+        "title": "Fichier",
+        "default": "lib/media/prepared/native-v102/slow-25b341c2aeb35dc28530.mp4",
+        "x-section": "Média — Carton final",
+        "x-control": "media"
+      },
+      "_media_pack_start_seconds": {
+        "type": "number",
+        "title": "Point IN source (s)",
+        "default": 0,
+        "x-section": "Média — Carton final",
+        "minimum": 0,
+        "maximum": 86400,
+        "description": "Secondes source, arrondies à1/25s. OUT=0 sélectionne la fin de la vidéo. Image : IN=0 et OUT=durée positive."
+      },
+      "_media_pack_end_seconds": {
+        "type": "number",
+        "title": "Point OUT source (s)",
+        "default": 6.44,
+        "x-section": "Média — Carton final",
+        "minimum": 0,
+        "maximum": 86400,
+        "description": "Secondes source, arrondies à1/25s. OUT=0 sélectionne la fin de la vidéo. Image : IN=0 et OUT=durée positive."
+      },
+      "_media_pack_sequence": {
+        "type": "string",
+        "title": "Liste de passages",
+        "default": "[]",
+        "x-section": "Média — Carton final",
+        "x-control": "sequence",
+        "description": "Liste de20 passages maximum. Chaque objet comporte url,start,end ; l’ordre est celui de lecture. Pour une image, start=0 et end=durée."
+      },
+      "_media_pack_loop": {
+        "type": "boolean",
+        "title": "Boucler la liste",
+        "default": false,
+        "x-section": "Média — Carton final"
+      },
+      "_media_pack_rate": {
+        "type": "number",
+        "title": "Vitesse",
+        "default": 1,
+        "x-section": "Média — Carton final",
+        "minimum": 0.0625,
+        "maximum": 4,
+        "description": "Les vidéos intro/carton fournies contiennent déjà le ralenti natif : les lire à 1×. Une vitesse < 1 sur une nouvelle vidéo ne crée pas d’images intermédiaires. Utiliser la préparation hors antenne pour un ralenti fluide."
+      },
+      "_media_pack_fit": {
+        "type": "string",
+        "title": "Cadrage",
+        "default": "cover",
+        "x-section": "Média — Carton final",
+        "enum": [
+          "cover",
+          "contain"
+        ]
+      },
+      "_media_pack_color_space": {
+        "type": "string",
+        "title": "Colorimétrie de la source",
+        "default": "auto",
+        "x-section": "Média — Carton final",
+        "enum": [
+          "auto",
+          "srgb",
+          "rec709_gamma24"
+        ],
+        "x-enumLabels": {
+          "auto": "Source native : vidéo Rec.709 / image sRGB",
+          "srgb": "sRGB, sans conversion",
+          "rec709_gamma24": "Rec.709 gamma2,4 → espace AE/sRGB"
+        },
+        "description": "Auto reproduit l’interprétation du projet source. Choisir sRGB pour une vidéo déjà convertie. Sources SDR uniquement ; aucune détection HDR automatique."
+      },
+      "_media_pack_audio_enabled": {
+        "type": "boolean",
+        "title": "Son du média",
+        "default": false,
+        "x-section": "Média — Carton final"
+      },
+      "_media_pack_volume": {
+        "type": "number",
+        "title": "Volume du média",
+        "default": 1,
+        "x-section": "Média — Carton final",
+        "minimum": 0,
+        "maximum": 1
+      },
+      "_audio_bed_enabled": {
+        "type": "boolean",
+        "title": "Activer le jingle source",
+        "default": true,
+        "x-section": "Audio de l’habillage"
+      },
+      "_audio_bed_url": {
+        "type": "string",
+        "title": "Fichier du jingle",
+        "default": "sourceassets/BTV_BA1P -23LUFS.wav",
+        "x-control": "audio",
+        "description": "URL HTTP(S), data/blob local ou chemin relatif au package. Préchargé avant application.",
+        "x-section": "Audio de l’habillage"
+      },
+      "_audio_bed_gain": {
+        "type": "number",
+        "title": "Gain du jingle (1 = niveau source)",
+        "default": 1,
+        "minimum": 0,
+        "maximum": 4,
+        "x-section": "Audio de l’habillage"
+      },
+      "_audio_bed_intro_in_seconds": {
+        "type": "number",
+        "title": "Jingle intro — entrée source (s)",
+        "default": 0,
+        "minimum": 0,
+        "maximum": 86400,
+        "x-section": "Audio de l’habillage"
+      },
+      "_audio_bed_intro_out_seconds": {
+        "type": "number",
+        "title": "Jingle intro — sortie source (s)",
+        "default": 9.68,
+        "minimum": 0,
+        "maximum": 86400,
+        "x-section": "Audio de l’habillage"
+      },
+      "_audio_bed_outro_in_seconds": {
+        "type": "number",
+        "title": "Jingle sortie — entrée source (s)",
+        "default": 21.88,
+        "minimum": 0,
+        "maximum": 86400,
+        "x-section": "Audio de l’habillage"
+      },
+      "_audio_bed_outro_out_seconds": {
+        "type": "number",
+        "title": "Jingle sortie — sortie source (s)",
+        "default": 30,
+        "minimum": 0,
+        "maximum": 86400,
+        "x-section": "Audio de l’habillage"
+      },
+      "_audio_voice_enabled": {
+        "type": "boolean",
+        "title": "Activer la voix annonce",
+        "default": true,
+        "x-section": "Audio de l’habillage"
+      },
+      "_audio_voice_url": {
+        "type": "string",
+        "title": "Fichier de voix annonce",
+        "default": "sourceassets/VOIX SEMAINE.mp3.mpeg",
+        "x-control": "audio",
+        "description": "URL HTTP(S), data/blob local ou chemin relatif au package. Préchargé avant application.",
+        "x-section": "Audio de l’habillage"
+      },
+      "_audio_voice_gain": {
+        "type": "number",
+        "title": "Gain de la voix (1 = niveau source)",
+        "default": 1,
+        "minimum": 0,
+        "maximum": 4,
+        "x-section": "Audio de l’habillage"
+      },
+      "_audio_voice_in_seconds": {
+        "type": "number",
+        "title": "Voix — entrée source (s)",
+        "default": 3.2,
+        "minimum": 0,
+        "maximum": 86400,
+        "x-section": "Audio de l’habillage"
+      },
+      "_audio_voice_out_seconds": {
+        "type": "number",
+        "title": "Voix — sortie source (s)",
+        "default": 5.36,
+        "minimum": 0,
+        "maximum": 86400,
+        "x-section": "Audio de l’habillage"
+      },
+      "_audio_voice_intro_offset_seconds": {
+        "type": "number",
+        "title": "Voix — départ dans l’intro (s)",
+        "default": 1.92,
+        "minimum": 0,
+        "maximum": 86400,
+        "description": "Temps absolu dans la timeline BA1P, pas un décalage relatif. Intro avant 9,68 s ; sortie entre 64,8 et 72,92 s.",
+        "x-section": "Audio de l’habillage"
+      },
+      "_audio_voice_outro_offset_seconds": {
+        "type": "number",
+        "title": "Voix — départ dans la sortie (s)",
+        "default": 68.48,
+        "minimum": 0,
+        "maximum": 86400,
+        "description": "Temps absolu dans la timeline BA1P, pas un décalage relatif. Intro avant 9,68 s ; sortie entre 64,8 et 72,92 s.",
+        "x-section": "Audio de l’habillage"
+      }
+    },
+    "width": 1920,
+    "height": 1080,
+    "fps": 25,
+    "legacyOfflineDeclared": false,
+    "exportQualification": "pending",
+    "siteQualification": "pending"
+  },
+  {
+    "id": "BTV_PopUp",
+    "name": "Pop-up · média et rendez-vous",
+    "description": "Textes, média incrusté, fond, séquences vidéo ou images, son des vidéos, couleurs de la charte et trois modes de sortie.",
+    "version": "1.2.0",
+    "libraryVersion": "1.7.0",
+    "category": "À l’antenne",
+    "module": "/library/v1.7.0/BTV_PopUp/graphic.mjs",
+    "preview": "/library/v1.7.0/BTV_PopUp/preview.html",
+    "fields": {
+      "_out_mode": {
+        "type": "string",
+        "title": "Mode de sortie",
+        "default": "manual",
+        "enum": [
+          "manual",
+          "duration",
+          "media_end"
+        ],
+        "x-enumLabels": {
+          "manual": "Grille / bouton OUT",
+          "duration": "Après une durée",
+          "media_end": "À la fin des extraits"
+        },
+        "x-section": "Sortie automatique",
+        "description": "IN applique ces réglages. La sortie automatique joue toujours l’animation OUT complète. OUT reste disponible à tout moment."
+      },
+      "_out_duration_seconds": {
+        "type": "number",
+        "title": "Durée avant OUT depuis IN (s)",
+        "minimum": 3.2,
+        "maximum": 86400,
+        "default": 12,
+        "x-section": "Sortie automatique",
+        "description": "Entrée incluse, sortie exclue (~0,84 s en plus). Une mise à jour ne remet pas le compteur à zéro."
+      },
+      "_out_media_track": {
+        "type": "string",
+        "title": "Extraits qui déclenchent OUT",
+        "default": "popup",
+        "enum": [
+          "popup",
+          "background",
+          "all"
+        ],
+        "x-enumLabels": {
+          "popup": "Pop-up",
+          "background": "Fond interne",
+          "all": "Toutes les pistes internes affichées"
+        },
+        "x-section": "Sortie automatique",
+        "description": "Boucle désactivée sur les pistes choisies. Chaque média doit avoir une durée finie ; pour une image, renseignez sa durée en sortie. L’entrée complète reste prioritaire."
+      },
+      "_label": {
+        "type": "string",
+        "title": "Libellé",
+        "default": "À SUIVRE",
+        "x-section": "Éditorial"
+      },
+      "_title": {
+        "type": "string",
+        "title": "Titre",
+        "default": "MAGAZINE\nDES SPORTS",
+        "description": "Deux lignes recommandées. Le décalage vertical After Effects est appliqué automatiquement.",
+        "x-section": "Éditorial"
+      },
+      "_subtitle": {
+        "type": "string",
+        "title": "Sous-titre",
+        "default": "Spécial Tour du Bénin",
+        "x-section": "Éditorial"
+      },
+      "_color_panel": {
+        "type": "string",
+        "title": "Fond du cartouche",
+        "default": "original",
+        "enum": [
+          "original",
+          "or",
+          "vert",
+          "rouge"
+        ],
+        "x-section": "Couleurs de l’habillage",
+        "x-enumLabels": {
+          "original": "Original (Or)",
+          "or": "Or · #F0B900",
+          "vert": "Vert · #007300",
+          "rouge": "Rouge · #EB1905"
+        },
+        "description": "Palette extraite de la composition AE. Typographies blanches et masques techniques conservés. Pas de couleur libre."
+      },
+      "_color_shutter_1": {
+        "type": "string",
+        "title": "Premier volet animé",
+        "default": "original",
+        "enum": [
+          "original",
+          "or",
+          "vert",
+          "rouge"
+        ],
+        "x-section": "Couleurs de l’habillage",
+        "x-enumLabels": {
+          "original": "Original (Vert)",
+          "or": "Or · #F0B900",
+          "vert": "Vert · #007300",
+          "rouge": "Rouge · #EB1905"
+        },
+        "description": "Palette extraite de la composition AE. Typographies blanches et masques techniques conservés. Pas de couleur libre."
+      },
+      "_color_shutter_2": {
+        "type": "string",
+        "title": "Second volet animé",
+        "default": "original",
+        "enum": [
+          "original",
+          "or",
+          "vert",
+          "rouge"
+        ],
+        "x-section": "Couleurs de l’habillage",
+        "x-enumLabels": {
+          "original": "Original (Rouge)",
+          "or": "Or · #F0B900",
+          "vert": "Vert · #007300",
+          "rouge": "Rouge · #EB1905"
+        },
+        "description": "Palette extraite de la composition AE. Typographies blanches et masques techniques conservés. Pas de couleur libre."
+      },
+      "_background_visible": {
+        "type": "boolean",
+        "title": "Afficher le fond programme interne",
+        "default": true,
+        "description": "Désactivez ce champ si la vidéo programme est déjà jouée par CasparCG sur la couche 10.",
+        "x-section": "Médias"
+      },
+      "_media_background_url": {
+        "type": "string",
+        "title": "Média de fond",
+        "default": "lib/media/default-background.png",
+        "x-control": "media",
+        "x-section": "Médias"
+      },
+      "_media_popup_url": {
+        "type": "string",
+        "title": "Média du pop-up",
+        "default": "lib/media/default-popup.png",
+        "x-control": "media",
+        "x-section": "Médias"
+      },
+      "_media_background_start_seconds": {
+        "type": "number",
+        "title": "Fond — point d’entrée (secondes)",
+        "default": 0,
+        "minimum": 0,
+        "x-section": "Synchronisation"
+      },
+      "_media_popup_start_seconds": {
+        "type": "number",
+        "title": "Pop-up — point d’entrée (secondes)",
+        "default": 0,
+        "minimum": 0,
+        "x-section": "Synchronisation"
+      },
+      "_media_background_loop": {
+        "type": "boolean",
+        "title": "Fond — boucler le passage ou la liste",
+        "default": true,
+        "x-section": "Synchronisation",
+        "description": "Sans boucle : arrêt sur la dernière image, audio arrêté."
+      },
+      "_media_popup_loop": {
+        "type": "boolean",
+        "title": "Pop-up — boucler le passage ou la liste",
+        "default": true,
+        "x-section": "Synchronisation",
+        "description": "Sans boucle : arrêt sur la dernière image, audio arrêté."
+      },
+      "_media_background_audio_enabled": {
+        "type": "boolean",
+        "title": "Activer l’audio du fond",
+        "default": false,
+        "description": "À laisser désactivé si le son est déjà joué par la couche programme CasparCG/Nebula.",
+        "x-section": "Audio"
+      },
+      "_media_background_volume": {
+        "type": "number",
+        "title": "Volume du fond",
+        "default": 1,
+        "minimum": 0,
+        "maximum": 1,
+        "x-section": "Audio"
+      },
+      "_media_popup_audio_enabled": {
+        "type": "boolean",
+        "title": "Activer l’audio du pop-up",
+        "default": false,
+        "description": "Désactivé par défaut pour empêcher le mélange accidentel de deux sources.",
+        "x-section": "Audio"
+      },
+      "_media_popup_volume": {
+        "type": "number",
+        "title": "Volume du pop-up",
+        "default": 1,
+        "minimum": 0,
+        "maximum": 1,
+        "x-section": "Audio"
+      },
+      "_media_background_end_seconds": {
+        "type": "number",
+        "title": "Fond — point de sortie (secondes)",
+        "default": 0,
+        "minimum": 0,
+        "description": "0 = fin du fichier. Sortie exclusive ; points arrondis à 25 i/s.",
+        "x-section": "Synchronisation"
+      },
+      "_media_background_sequence": {
+        "type": "string",
+        "title": "Fond — liste d’extraits",
+        "default": "[]",
+        "x-control": "sequence",
+        "x-section": "Médias",
+        "description": "Tableau JSON (0 à 20 extraits) : [{\"url\":\"lib/media/clip.webm\",\"start\":2,\"end\":6}]. Une liste non vide remplace le média simple. Le runtime accepte aussi le tableau directement.",
+        "x-itemSchema": {
+          "type": "object",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string"
+            },
+            "start": {
+              "type": "number",
+              "minimum": 0
+            },
+            "end": {
+              "type": "number",
+              "minimum": 0
+            }
+          }
+        }
+      },
+      "_media_popup_end_seconds": {
+        "type": "number",
+        "title": "Pop-up — point de sortie (secondes)",
+        "default": 0,
+        "minimum": 0,
+        "description": "0 = fin du fichier. Sortie exclusive ; points arrondis à 25 i/s.",
+        "x-section": "Synchronisation"
+      },
+      "_media_popup_sequence": {
+        "type": "string",
+        "title": "Pop-up — liste d’extraits",
+        "default": "[]",
+        "x-control": "sequence",
+        "x-section": "Médias",
+        "description": "Tableau JSON (0 à 20 extraits) : [{\"url\":\"lib/media/clip.webm\",\"start\":2,\"end\":6}]. Une liste non vide remplace le média simple. Le runtime accepte aussi le tableau directement.",
+        "x-itemSchema": {
+          "type": "object",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string"
+            },
+            "start": {
+              "type": "number",
+              "minimum": 0
+            },
+            "end": {
+              "type": "number",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    },
+    "width": 1920,
+    "height": 1080,
+    "fps": 25,
+    "legacyOfflineDeclared": true,
+    "exportQualification": "pending",
+    "siteQualification": "pending"
+  },
+  {
+    "id": "BTV_BA_TDS",
+    "name": "Tout de suite",
+    "description": "Annonce d’un programme avec textes et sponsor, média optionnel, extraits, son vidéo, musique et voix off réglables. Couleurs originales conservées.",
+    "version": "1.3.0",
+    "libraryVersion": "1.7.0",
+    "category": "Bandes-annonces",
+    "module": "/library/v1.7.0/BTV_BA_TDS/graphic.mjs",
+    "preview": "/library/v1.7.0/BTV_BA_TDS/preview.html",
+    "fields": {
+      "_theme": {
+        "type": "string",
+        "title": "Thématique",
+        "description": "Convertie automatiquement en capitales dans le rendu.",
+        "default": "magazine"
+      },
+      "_titre_ligne_1": {
+        "type": "string",
+        "title": "Titre — ligne 1",
+        "description": "Obligatoire et convertie automatiquement en capitales.",
+        "default": "L’Islam",
+        "minLength": 1
+      },
+      "_titre_ligne_2": {
+        "type": "string",
+        "title": "Titre — ligne 2",
+        "default": ""
+      },
+      "_titre_ligne_3": {
+        "type": "string",
+        "title": "Titre — ligne 3",
+        "description": "La ligne 2 doit être renseignée avant la ligne 3.",
+        "default": ""
+      },
+      "_sous_titre": {
+        "type": "string",
+        "title": "Sous-titre / crédit",
+        "default": ""
+      },
+      "_sponsor_visible": {
+        "type": "boolean",
+        "title": "Afficher le sponsor",
+        "default": false
+      },
+      "_sponsor_logo": {
+        "type": "string",
+        "title": "Logo sponsor",
+        "default": "img_0.png",
+        "contentMediaType": "image/png",
+        "x-control": "image"
+      },
+      "_out_mode": {
+        "type": "string",
+        "title": "Mode de sortie",
+        "default": "manual",
+        "enum": [
+          "manual",
+          "duration",
+          "media_end"
+        ],
+        "x-enumLabels": {
+          "manual": "Grille / bouton OUT",
+          "duration": "Après une durée",
+          "media_end": "À la fin des extraits"
+        },
+        "x-section": "Sortie automatique",
+        "description": "IN applique ces réglages. La sortie automatique joue toujours l’animation OUT complète. OUT reste disponible à tout moment."
+      },
+      "_out_duration_seconds": {
+        "type": "number",
+        "title": "Durée avant OUT depuis IN (s)",
+        "minimum": 15.28,
+        "maximum": 86400,
+        "default": 16,
+        "x-section": "Sortie automatique",
+        "description": "Depuis IN ; inclut la séquence graphique source de 15,28 s. OUT ajoute 0,72 s."
+      },
+      "_out_media_track": {
+        "type": "string",
+        "title": "Piste surveillée : programme interne",
+        "default": "background",
+        "enum": [
+          "background"
+        ],
+        "x-enumLabels": {
+          "popup": "Pop-up",
+          "background": "Fond interne",
+          "all": "Toutes les pistes internes affichées"
+        },
+        "x-section": "Sortie automatique",
+        "description": "Boucle désactivée sur les pistes choisies. Chaque média doit avoir une durée finie ; pour une image, renseignez sa durée en sortie. L’entrée complète reste prioritaire."
+      },
+      "_background_visible": {
+        "type": "boolean",
+        "title": "Afficher le média programme interne",
+        "default": false,
+        "description": "Désactivé : programme/audio sur la couche externe 10. Activé : vidéo/image interne sous le graphisme.",
+        "x-section": "Médias"
+      },
+      "_media_background_url": {
+        "type": "string",
+        "title": "Média programme interne",
+        "default": "",
+        "x-control": "media",
+        "x-section": "Médias",
+        "description": "URL HTTP(S), chemin relatif au package ou descripteur média. Utilisé seulement si le média interne est activé."
+      },
+      "_media_background_start_seconds": {
+        "type": "number",
+        "title": "Fond — point d’entrée (secondes)",
+        "default": 0,
+        "minimum": 0,
+        "x-section": "Synchronisation"
+      },
+      "_media_background_loop": {
+        "type": "boolean",
+        "title": "Boucler la séquence programme interne",
+        "default": false,
+        "x-section": "Synchronisation",
+        "description": "Sans boucle : arrêt sur la dernière image, audio arrêté."
+      },
+      "_media_background_audio_enabled": {
+        "type": "boolean",
+        "title": "Activer l’audio du fond",
+        "default": false,
+        "description": "À laisser désactivé si le son est déjà joué par la couche programme CasparCG/Nebula.",
+        "x-section": "Audio"
+      },
+      "_media_background_volume": {
+        "type": "number",
+        "title": "Volume du fond",
+        "default": 1,
+        "minimum": 0,
+        "maximum": 1,
+        "x-section": "Audio"
+      },
+      "_media_background_end_seconds": {
+        "type": "number",
+        "title": "Fond — point de sortie (secondes)",
+        "default": 0,
+        "minimum": 0,
+        "description": "0 = fin du fichier. Sortie exclusive ; points arrondis à 25 i/s.",
+        "x-section": "Synchronisation"
+      },
+      "_media_background_sequence": {
+        "type": "string",
+        "title": "Fond — liste d’extraits",
+        "default": "[]",
+        "x-control": "sequence",
+        "x-section": "Médias",
+        "description": "Tableau JSON (0 à 20 extraits) : [{\"url\":\"lib/media/clip.webm\",\"start\":2,\"end\":6}]. Une liste non vide remplace le média simple. Le runtime accepte aussi le tableau directement.",
+        "x-itemSchema": {
+          "type": "object",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string"
+            },
+            "start": {
+              "type": "number",
+              "minimum": 0
+            },
+            "end": {
+              "type": "number",
+              "minimum": 0
+            }
+          }
+        }
+      },
+      "_color_artwork": {
+        "type": "string",
+        "title": "Palette graphique source",
+        "enum": [
+          "original"
+        ],
+        "default": "original",
+        "description": "Couleurs verrouillées à la charte AE. Fond animé précalculé : une recoloration indépendante exige de nouvelles passes source."
+      },
+      "_audio_bed_enabled": {
+        "type": "boolean",
+        "title": "Jingle source — activer",
+        "default": false
+      },
+      "_audio_bed_url": {
+        "type": "string",
+        "title": "Jingle source — fichier",
+        "default": "lib/audio/BTV_BA TDS -23LUFS.wav",
+        "description": "WAV embarqué par défaut. Remplaçable par une URL ou un chemin relatif audio."
+      },
+      "_audio_bed_volume": {
+        "type": "number",
+        "title": "Jingle source — volume",
+        "default": 1,
+        "minimum": 0,
+        "maximum": 1
+      },
+      "_audio_bed_start_seconds": {
+        "type": "number",
+        "title": "Jingle source — entrée source (s)",
+        "default": 0,
+        "minimum": 0,
+        "maximum": 86400
+      },
+      "_audio_bed_end_seconds": {
+        "type": "number",
+        "title": "Jingle source — sortie source (s)",
+        "default": 15,
+        "minimum": 0,
+        "maximum": 86400
+      },
+      "_audio_bed_delay_seconds": {
+        "type": "number",
+        "title": "Jingle source — départ après IN (s)",
+        "default": 0,
+        "minimum": 0,
+        "maximum": 86400
+      },
+      "_audio_voice_enabled": {
+        "type": "boolean",
+        "title": "Voix off source — activer",
+        "default": false
+      },
+      "_audio_voice_url": {
+        "type": "string",
+        "title": "Voix off source — fichier",
+        "default": "lib/audio/VOIX OFF BA.wav",
+        "description": "WAV embarqué par défaut. Remplaçable par une URL ou un chemin relatif audio."
+      },
+      "_audio_voice_volume": {
+        "type": "number",
+        "title": "Voix off source — volume",
+        "default": 1,
+        "minimum": 0,
+        "maximum": 1
+      },
+      "_audio_voice_start_seconds": {
+        "type": "number",
+        "title": "Voix off source — entrée source (s)",
+        "default": 15.6,
+        "minimum": 0,
+        "maximum": 86400
+      },
+      "_audio_voice_end_seconds": {
+        "type": "number",
+        "title": "Voix off source — sortie source (s)",
+        "default": 17.6,
+        "minimum": 0,
+        "maximum": 86400
+      },
+      "_audio_voice_delay_seconds": {
+        "type": "number",
+        "title": "Voix off source — départ après IN (s)",
+        "default": 2.4,
+        "minimum": 0,
+        "maximum": 86400
+      }
+    },
+    "width": 1920,
+    "height": 1080,
+    "fps": 25,
+    "legacyOfflineDeclared": true,
+    "exportQualification": "pending",
+    "siteQualification": "pending"
+  },
+  {
+    "id": "BTV_BA_TDS_SUIVI_DE",
+    "name": "Tout de suite · suivi de",
+    "description": "Deux programmes avec textes et sponsors distincts, médias et extraits, réglages audio et sorties automatiques. Couleurs originales conservées.",
+    "version": "1.3.0",
+    "libraryVersion": "1.7.0",
+    "category": "Bandes-annonces",
+    "module": "/library/v1.7.0/BTV_BA_TDS_SUIVI_DE/graphic.mjs",
+    "preview": "/library/v1.7.0/BTV_BA_TDS_SUIVI_DE/preview.html",
+    "fields": {
+      "_intro_label": {
+        "type": "string",
+        "title": "Libellé d’introduction",
+        "default": "TOUT DE SUITE",
+        "x-section": "Transitions"
+      },
+      "_intro_reveal": {
+        "type": "string",
+        "title": "Mot révélé à l’introduction",
+        "default": "DE SUITE",
+        "x-section": "Transitions"
+      },
+      "_followup_label": {
+        "type": "string",
+        "title": "Libellé de suivi",
+        "default": "SUIVI DE",
+        "x-section": "Transitions"
+      },
+      "_followup_reveal": {
+        "type": "string",
+        "title": "Mot révélé au suivi",
+        "default": "DE",
+        "x-section": "Transitions"
+      },
+      "_p1_theme": {
+        "type": "string",
+        "title": "Programme 1 — thématique",
+        "default": "FICTION",
+        "x-section": "Programme 1"
+      },
+      "_p1_titre_ligne_1": {
+        "type": "string",
+        "title": "Programme 1 — titre ligne 1",
+        "default": "BOIS",
+        "x-section": "Programme 1",
+        "minLength": 1
+      },
+      "_p1_titre_ligne_2": {
+        "type": "string",
+        "title": "Programme 1 — titre ligne 2",
+        "default": "D’ÉBÈNE",
+        "x-section": "Programme 1"
+      },
+      "_p1_titre_ligne_3": {
+        "type": "string",
+        "title": "Programme 1 — titre ligne 3",
+        "default": "",
+        "description": "Nécessite la ligne 2.",
+        "x-section": "Programme 1"
+      },
+      "_p1_sous_titre": {
+        "type": "string",
+        "title": "Programme 1 — sous-titre / crédit",
+        "default": "réalisé par Moussa Touré",
+        "x-section": "Programme 1"
+      },
+      "_p1_sponsor_visible": {
+        "type": "boolean",
+        "title": "Programme 1 — afficher le sponsor",
+        "default": false,
+        "x-section": "Programme 1"
+      },
+      "_p1_mentions_visible": {
+        "type": "boolean",
+        "title": "Programme 1 — afficher les mentions",
+        "default": false,
+        "x-section": "Programme 1"
+      },
+      "_p1_sponsor_logo": {
+        "type": "string",
+        "title": "Programme 1 — logo sponsor",
+        "default": "img_1.png",
+        "contentMediaType": "image/png",
+        "x-control": "image",
+        "x-section": "Programme 1"
+      },
+      "_p2_theme": {
+        "type": "string",
+        "title": "Programme 2 — thématique",
+        "default": "",
+        "x-section": "Programme 2"
+      },
+      "_p2_titre_ligne_1": {
+        "type": "string",
+        "title": "Programme 2 — titre ligne 1",
+        "default": "LA CULTURE",
+        "x-section": "Programme 2",
+        "minLength": 1
+      },
+      "_p2_titre_ligne_2": {
+        "type": "string",
+        "title": "Programme 2 — titre ligne 2",
+        "default": "TAMMARI",
+        "x-section": "Programme 2"
+      },
+      "_p2_titre_ligne_3": {
+        "type": "string",
+        "title": "Programme 2 — titre ligne 3",
+        "default": "",
+        "description": "Nécessite la ligne 2.",
+        "x-section": "Programme 2"
+      },
+      "_p2_sous_titre": {
+        "type": "string",
+        "title": "Programme 2 — sous-titre / crédit",
+        "default": "Un mode de vie\nen harmonie avec la nature",
+        "x-section": "Programme 2"
+      },
+      "_p2_sponsor_visible": {
+        "type": "boolean",
+        "title": "Programme 2 — afficher le sponsor",
+        "default": true,
+        "x-section": "Programme 2"
+      },
+      "_p2_mentions_visible": {
+        "type": "boolean",
+        "title": "Programme 2 — afficher les mentions",
+        "default": true,
+        "x-section": "Programme 2"
+      },
+      "_p2_sponsor_logo": {
+        "type": "string",
+        "title": "Programme 2 — logo sponsor",
+        "default": "img_0.png",
+        "contentMediaType": "image/png",
+        "x-control": "image",
+        "x-section": "Programme 2"
+      },
+      "_media_mode": {
+        "type": "string",
+        "title": "Lecture des programmes",
+        "default": "external",
+        "x-section": "Diffusion",
+        "enum": [
+          "external",
+          "internal"
+        ],
+        "enumNames": [
+          "Par la grille CasparCG/Nebula",
+          "Dans le template (images/vidéos)"
+        ]
+      },
+      "_out_mode": {
+        "type": "string",
+        "title": "Déclenchement de la sortie",
+        "default": "manual",
+        "x-section": "Sortie automatique",
+        "enum": [
+          "manual",
+          "duration",
+          "media_end"
+        ],
+        "enumNames": [
+          "Manuel / grille",
+          "Après une durée",
+          "Fin des extraits internes"
+        ]
+      },
+      "_out_duration_seconds": {
+        "type": "number",
+        "title": "Durée depuis IN avant OUT (s)",
+        "default": 24.28,
+        "minimum": 24.28,
+        "maximum": 86400,
+        "x-section": "Sortie automatique"
+      },
+      "_out_media_track": {
+        "type": "string",
+        "title": "Piste surveillée",
+        "default": "programme_2",
+        "x-section": "Sortie automatique",
+        "enum": [
+          "programme_1",
+          "programme_2",
+          "all"
+        ]
+      },
+      "_color_palette": {
+        "type": "string",
+        "title": "Palette source BTV",
+        "default": "original",
+        "x-section": "Charte graphique",
+        "enum": [
+          "original"
+        ],
+        "description": "Palette originale conservée. Les aplats de cette composition hybride sont précalculés dans les images de fond et ne peuvent pas être substitués dynamiquement."
+      },
+      "_media_programme_1_url": {
+        "title": "Programme 1 — média",
+        "default": "",
+        "x-section": "Média programme 1",
+        "x-control": "media",
+        "description": "Chemin relatif au package ou URL HTTP(S). PNG, JPEG, WebP, GIF, SVG ; MP4, WebM, Ogg selon les codecs du moteur.",
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string"
+              },
+              "mimeType": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "url"
+            ]
+          }
+        ]
+      },
+      "_media_programme_1_start_seconds": {
+        "type": "number",
+        "title": "Entrée source (s)",
+        "default": 0,
+        "minimum": 0,
+        "maximum": 86400,
+        "x-section": "Média programme 1"
+      },
+      "_media_programme_1_end_seconds": {
+        "type": "number",
+        "title": "Sortie source (s) ; 0 = fin du fichier",
+        "default": 0,
+        "minimum": 0,
+        "maximum": 86400,
+        "x-section": "Média programme 1"
+      },
+      "_media_programme_1_sequence": {
+        "type": "string",
+        "title": "Liste ordonnée des extraits JSON",
+        "default": "[]",
+        "x-section": "Média programme 1",
+        "description": "0–20 extraits {url,start,end}. Image en liste : start=0, end=durée. La liste remplace le média simple."
+      },
+      "_media_programme_1_loop": {
+        "type": "boolean",
+        "title": "Boucler les extraits",
+        "default": false,
+        "x-section": "Média programme 1"
+      },
+      "_media_programme_1_audio_enabled": {
+        "type": "boolean",
+        "title": "Activer le son du programme",
+        "default": false,
+        "x-section": "Média programme 1"
+      },
+      "_media_programme_1_volume": {
+        "type": "number",
+        "title": "Volume programme (0–1)",
+        "default": 1,
+        "minimum": 0,
+        "maximum": 1,
+        "x-section": "Média programme 1"
+      },
+      "_media_programme_2_url": {
+        "title": "Programme 2 — média",
+        "default": "",
+        "x-section": "Média programme 2",
+        "x-control": "media",
+        "description": "Chemin relatif au package ou URL HTTP(S). PNG, JPEG, WebP, GIF, SVG ; MP4, WebM, Ogg selon les codecs du moteur.",
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string"
+              },
+              "mimeType": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "url"
+            ]
+          }
+        ]
+      },
+      "_media_programme_2_start_seconds": {
+        "type": "number",
+        "title": "Entrée source (s)",
+        "default": 0,
+        "minimum": 0,
+        "maximum": 86400,
+        "x-section": "Média programme 2"
+      },
+      "_media_programme_2_end_seconds": {
+        "type": "number",
+        "title": "Sortie source (s) ; 0 = fin du fichier",
+        "default": 0,
+        "minimum": 0,
+        "maximum": 86400,
+        "x-section": "Média programme 2"
+      },
+      "_media_programme_2_sequence": {
+        "type": "string",
+        "title": "Liste ordonnée des extraits JSON",
+        "default": "[]",
+        "x-section": "Média programme 2",
+        "description": "0–20 extraits {url,start,end}. Image en liste : start=0, end=durée. La liste remplace le média simple."
+      },
+      "_media_programme_2_loop": {
+        "type": "boolean",
+        "title": "Boucler les extraits",
+        "default": false,
+        "x-section": "Média programme 2"
+      },
+      "_media_programme_2_audio_enabled": {
+        "type": "boolean",
+        "title": "Activer le son du programme",
+        "default": false,
+        "x-section": "Média programme 2"
+      },
+      "_media_programme_2_volume": {
+        "type": "number",
+        "title": "Volume programme (0–1)",
+        "default": 1,
+        "minimum": 0,
+        "maximum": 1,
+        "x-section": "Média programme 2"
+      },
+      "_audio_bed_enabled": {
+        "type": "boolean",
+        "title": "Activer le son original de l’habillage",
+        "default": false,
+        "x-section": "Son habillage"
+      },
+      "_audio_bed_url": {
+        "type": "string",
+        "title": "Fichier audio habillage",
+        "default": "lib/media/audio-bed.wav",
+        "x-section": "Son habillage",
+        "x-control": "audio",
+        "description": "WAV original inclus ; URL HTTP(S) ou chemin relatif. La lecture suit IN, OUT et le positionnement."
+      },
+      "_audio_bed_start_seconds": {
+        "type": "number",
+        "title": "Décalage entrée audio (s)",
+        "default": 0,
+        "minimum": 0,
+        "maximum": 86400,
+        "x-section": "Son habillage"
+      },
+      "_audio_bed_volume": {
+        "type": "number",
+        "title": "Volume habillage (0–1)",
+        "default": 1,
+        "minimum": 0,
+        "maximum": 1,
+        "x-section": "Son habillage"
+      },
+      "_audio_bed_loop": {
+        "type": "boolean",
+        "title": "Boucler le son habillage",
+        "default": false,
+        "x-section": "Son habillage"
+      }
+    },
+    "width": 1920,
+    "height": 1080,
+    "fps": 25,
+    "legacyOfflineDeclared": true,
+    "exportQualification": "pending",
+    "siteQualification": "pending"
+  },
+  {
+    "id": "BTV_Ce_Soir",
+    "name": "Ce soir · trois rendez-vous",
+    "description": "Trois programmes et leurs images ou vidéos, horaires et titres modifiables. Entrées progressives et rythme de lecture posé.",
+    "version": "1.0.0",
+    "libraryVersion": "1.7.0",
+    "category": "Programmation",
+    "module": "/library/v1.7.0/BTV_Ce_Soir/graphic.mjs",
+    "preview": "/library/v1.7.0/BTV_Ce_Soir/preview.html",
+    "fields": {
+      "_heading": {
+        "type": "string",
+        "title": "Titre du panneau",
+        "default": "CE SOIR",
+        "maxLength": 30,
+        "x-section": "Textes"
+      },
+      "_station": {
+        "type": "string",
+        "title": "Signature chaîne",
+        "default": "SUR BÉNIN TV",
+        "maxLength": 35,
+        "x-section": "Textes"
+      },
+      "_time_1": {
+        "type": "string",
+        "title": "Horaire",
+        "default": "20H30",
+        "maxLength": 12,
+        "x-section": "Programme 1"
+      },
+      "_title_1": {
+        "type": "string",
+        "title": "Titre (deux lignes maximum)",
+        "default": "L’ISLAM\nEN PARTAGE",
+        "maxLength": 90,
+        "x-section": "Programme 1"
+      },
+      "_time_2": {
+        "type": "string",
+        "title": "Horaire",
+        "default": "21H30",
+        "maxLength": 12,
+        "x-section": "Programme 2"
+      },
+      "_title_2": {
+        "type": "string",
+        "title": "Titre (deux lignes maximum)",
+        "default": "LE GRAND\nENTRETIEN",
+        "maxLength": 90,
+        "x-section": "Programme 2"
+      },
+      "_time_3": {
+        "type": "string",
+        "title": "Horaire",
+        "default": "22H30",
+        "maxLength": 12,
+        "x-section": "Programme 3"
+      },
+      "_title_3": {
+        "type": "string",
+        "title": "Titre (deux lignes maximum)",
+        "default": "REGARDS\nDU BÉNIN",
+        "maxLength": 90,
+        "x-section": "Programme 3"
+      },
+      "_color": {
+        "type": "string",
+        "title": "Couleur de charte",
+        "default": "or",
+        "enum": [
+          "or",
+          "vert",
+          "rouge"
+        ],
+        "x-section": "Charte"
+      },
+      "_out_mode": {
+        "type": "string",
+        "title": "Déclencher OUT",
+        "default": "duration",
+        "enum": [
+          "manual",
+          "duration",
+          "media_end"
+        ],
+        "x-section": "Sortie automatique"
+      },
+      "_out_duration_seconds": {
+        "type": "number",
+        "title": "Durée avant OUT, entrée incluse (s)",
+        "default": 13.8,
+        "minimum": 2.6,
+        "maximum": 86400,
+        "x-section": "Sortie automatique",
+        "multipleOf": 0.04,
+        "description": "L’animation OUT de 1.2 s s’ajoute à cette durée. UPDATE ne relance pas le compteur."
+      },
+      "_out_media_track": {
+        "type": "string",
+        "title": "Piste déclenchant OUT",
+        "default": "1",
+        "enum": [
+          "background",
+          "1",
+          "2",
+          "3"
+        ],
+        "x-section": "Sortie automatique"
+      },
+      "_media_background_url": {
+        "title": "Fichier / URL",
+        "default": "",
+        "x-section": "Fond du panneau",
+        "anyOf": [
+          {
+            "type": "string",
+            "maxLength": 2048
+          },
+          {
+            "type": "object",
+            "required": [
+              "url",
+              "name",
+              "mimeType"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "url": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "mimeType": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "_media_background_start_seconds": {
+        "type": "number",
+        "title": "Entrée source (s)",
+        "default": 0,
+        "minimum": 0,
+        "maximum": 86400,
+        "x-section": "Fond du panneau",
+        "multipleOf": 0.04
+      },
+      "_media_background_end_seconds": {
+        "type": "number",
+        "title": "Sortie source (s), 0 = fin du fichier",
+        "default": 0,
+        "minimum": 0,
+        "maximum": 86400,
+        "x-section": "Fond du panneau",
+        "multipleOf": 0.04
+      },
+      "_media_background_sequence": {
+        "type": "string",
+        "title": "Liste des passages JSON",
+        "default": "[]",
+        "maxLength": 20000,
+        "x-section": "Fond du panneau",
+        "description": "Maximum 8 extraits par piste ; {url,start,end}. Image : start=0, end=durée. La liste remplace le fichier simple."
+      },
+      "_media_background_loop": {
+        "type": "boolean",
+        "title": "Boucler",
+        "default": false,
+        "x-section": "Fond du panneau"
+      },
+      "_media_background_fit": {
+        "type": "string",
+        "title": "Cadrage",
+        "default": "cover",
+        "enum": [
+          "cover",
+          "contain"
+        ],
+        "x-section": "Fond du panneau"
+      },
+      "_media_background_audio_enabled": {
+        "type": "boolean",
+        "title": "Son de cette vidéo",
+        "default": false,
+        "x-section": "Fond du panneau"
+      },
+      "_media_background_volume": {
+        "type": "number",
+        "title": "Volume (0 à 1)",
+        "default": 1,
+        "minimum": 0,
+        "maximum": 1,
+        "x-section": "Fond du panneau"
+      },
+      "_media_1_url": {
+        "title": "Fichier / URL",
+        "default": "lib/media/programme.jpg",
+        "x-section": "Média programme 1",
+        "anyOf": [
+          {
+            "type": "string",
+            "maxLength": 2048
+          },
+          {
+            "type": "object",
+            "required": [
+              "url",
+              "name",
+              "mimeType"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "url": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "mimeType": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "_media_1_start_seconds": {
+        "type": "number",
+        "title": "Entrée source (s)",
+        "default": 0,
+        "minimum": 0,
+        "maximum": 86400,
+        "x-section": "Média programme 1",
+        "multipleOf": 0.04
+      },
+      "_media_1_end_seconds": {
+        "type": "number",
+        "title": "Sortie source (s), 0 = fin du fichier",
+        "default": 0,
+        "minimum": 0,
+        "maximum": 86400,
+        "x-section": "Média programme 1",
+        "multipleOf": 0.04
+      },
+      "_media_1_sequence": {
+        "type": "string",
+        "title": "Liste des passages JSON",
+        "default": "[]",
+        "maxLength": 20000,
+        "x-section": "Média programme 1",
+        "description": "Maximum 8 extraits par piste ; {url,start,end}. Image : start=0, end=durée. La liste remplace le fichier simple."
+      },
+      "_media_1_loop": {
+        "type": "boolean",
+        "title": "Boucler",
+        "default": false,
+        "x-section": "Média programme 1"
+      },
+      "_media_1_fit": {
+        "type": "string",
+        "title": "Cadrage",
+        "default": "cover",
+        "enum": [
+          "cover",
+          "contain"
+        ],
+        "x-section": "Média programme 1"
+      },
+      "_media_1_audio_enabled": {
+        "type": "boolean",
+        "title": "Son de cette vidéo",
+        "default": false,
+        "x-section": "Média programme 1"
+      },
+      "_media_1_volume": {
+        "type": "number",
+        "title": "Volume (0 à 1)",
+        "default": 1,
+        "minimum": 0,
+        "maximum": 1,
+        "x-section": "Média programme 1"
+      },
+      "_media_2_url": {
+        "title": "Fichier / URL",
+        "default": "lib/media/card-2.svg",
+        "x-section": "Média programme 2",
+        "anyOf": [
+          {
+            "type": "string",
+            "maxLength": 2048
+          },
+          {
+            "type": "object",
+            "required": [
+              "url",
+              "name",
+              "mimeType"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "url": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "mimeType": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "_media_2_start_seconds": {
+        "type": "number",
+        "title": "Entrée source (s)",
+        "default": 0,
+        "minimum": 0,
+        "maximum": 86400,
+        "x-section": "Média programme 2",
+        "multipleOf": 0.04
+      },
+      "_media_2_end_seconds": {
+        "type": "number",
+        "title": "Sortie source (s), 0 = fin du fichier",
+        "default": 0,
+        "minimum": 0,
+        "maximum": 86400,
+        "x-section": "Média programme 2",
+        "multipleOf": 0.04
+      },
+      "_media_2_sequence": {
+        "type": "string",
+        "title": "Liste des passages JSON",
+        "default": "[]",
+        "maxLength": 20000,
+        "x-section": "Média programme 2",
+        "description": "Maximum 8 extraits par piste ; {url,start,end}. Image : start=0, end=durée. La liste remplace le fichier simple."
+      },
+      "_media_2_loop": {
+        "type": "boolean",
+        "title": "Boucler",
+        "default": false,
+        "x-section": "Média programme 2"
+      },
+      "_media_2_fit": {
+        "type": "string",
+        "title": "Cadrage",
+        "default": "cover",
+        "enum": [
+          "cover",
+          "contain"
+        ],
+        "x-section": "Média programme 2"
+      },
+      "_media_2_audio_enabled": {
+        "type": "boolean",
+        "title": "Son de cette vidéo",
+        "default": false,
+        "x-section": "Média programme 2"
+      },
+      "_media_2_volume": {
+        "type": "number",
+        "title": "Volume (0 à 1)",
+        "default": 1,
+        "minimum": 0,
+        "maximum": 1,
+        "x-section": "Média programme 2"
+      },
+      "_media_3_url": {
+        "title": "Fichier / URL",
+        "default": "lib/media/card-3.svg",
+        "x-section": "Média programme 3",
+        "anyOf": [
+          {
+            "type": "string",
+            "maxLength": 2048
+          },
+          {
+            "type": "object",
+            "required": [
+              "url",
+              "name",
+              "mimeType"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "url": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "mimeType": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "_media_3_start_seconds": {
+        "type": "number",
+        "title": "Entrée source (s)",
+        "default": 0,
+        "minimum": 0,
+        "maximum": 86400,
+        "x-section": "Média programme 3",
+        "multipleOf": 0.04
+      },
+      "_media_3_end_seconds": {
+        "type": "number",
+        "title": "Sortie source (s), 0 = fin du fichier",
+        "default": 0,
+        "minimum": 0,
+        "maximum": 86400,
+        "x-section": "Média programme 3",
+        "multipleOf": 0.04
+      },
+      "_media_3_sequence": {
+        "type": "string",
+        "title": "Liste des passages JSON",
+        "default": "[]",
+        "maxLength": 20000,
+        "x-section": "Média programme 3",
+        "description": "Maximum 8 extraits par piste ; {url,start,end}. Image : start=0, end=durée. La liste remplace le fichier simple."
+      },
+      "_media_3_loop": {
+        "type": "boolean",
+        "title": "Boucler",
+        "default": false,
+        "x-section": "Média programme 3"
+      },
+      "_media_3_fit": {
+        "type": "string",
+        "title": "Cadrage",
+        "default": "cover",
+        "enum": [
+          "cover",
+          "contain"
+        ],
+        "x-section": "Média programme 3"
+      },
+      "_media_3_audio_enabled": {
+        "type": "boolean",
+        "title": "Son de cette vidéo",
+        "default": false,
+        "x-section": "Média programme 3"
+      },
+      "_media_3_volume": {
+        "type": "number",
+        "title": "Volume (0 à 1)",
+        "default": 1,
+        "minimum": 0,
+        "maximum": 1,
+        "x-section": "Média programme 3"
+      },
+      "_audio_enabled": {
+        "type": "boolean",
+        "title": "Activer un accompagnement audio",
+        "default": false,
+        "x-section": "Audio facultatif"
+      },
+      "_audio_url": {
+        "title": "Fichier audio / URL",
+        "default": "",
+        "x-section": "Audio facultatif",
+        "anyOf": [
+          {
+            "type": "string",
+            "maxLength": 2048
+          },
+          {
+            "type": "object",
+            "required": [
+              "url",
+              "name",
+              "mimeType"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "url": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "mimeType": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "_audio_start_seconds": {
+        "type": "number",
+        "title": "Entrée audio (s)",
+        "default": 0,
+        "minimum": 0,
+        "maximum": 86400,
+        "x-section": "Audio facultatif",
+        "multipleOf": 0.04
+      },
+      "_audio_end_seconds": {
+        "type": "number",
+        "title": "Sortie audio (s), 0 = fin",
+        "default": 0,
+        "minimum": 0,
+        "maximum": 86400,
+        "x-section": "Audio facultatif",
+        "multipleOf": 0.04
+      },
+      "_audio_loop": {
+        "type": "boolean",
+        "title": "Boucler cet audio",
+        "default": false,
+        "x-section": "Audio facultatif"
+      },
+      "_audio_volume": {
+        "type": "number",
+        "title": "Volume audio (0 à 1)",
+        "default": 1,
+        "minimum": 0,
+        "maximum": 1,
+        "x-section": "Audio facultatif"
+      }
+    },
+    "width": 1920,
+    "height": 1080,
+    "fps": 25,
+    "legacyOfflineDeclared": false,
+    "exportQualification": "pending",
+    "siteQualification": "pending"
+  },
+  {
+    "id": "BTV_Relais_Antenne",
+    "name": "Le relais d’antenne",
+    "description": "Programme en cours et programme suivant, sur un bandeau transparent autour de l’habillage. Mise à jour sans relancer l’animation.",
+    "version": "1.0.0",
+    "libraryVersion": "1.7.0",
+    "category": "À l’antenne",
+    "module": "/library/v1.7.0/BTV_Relais_Antenne/graphic.mjs",
+    "preview": "/library/v1.7.0/BTV_Relais_Antenne/preview.html",
+    "fields": {
+      "_current_label": {
+        "type": "string",
+        "title": "Libellé programme en cours",
+        "default": "VOUS REGARDEZ",
+        "maxLength": 40,
+        "x-section": "Textes"
+      },
+      "_current_title": {
+        "type": "string",
+        "title": "Programme en cours",
+        "default": "L’ISLAM\nEN PARTAGE",
+        "maxLength": 110,
+        "x-section": "Textes"
+      },
+      "_next_label": {
+        "type": "string",
+        "title": "Libellé programme suivant",
+        "default": "JUSTE APRÈS",
+        "maxLength": 40,
+        "x-section": "Textes"
+      },
+      "_next_title": {
+        "type": "string",
+        "title": "Programme suivant",
+        "default": "LE GRAND\nENTRETIEN",
+        "maxLength": 110,
+        "x-section": "Textes"
+      },
+      "_next_time": {
+        "type": "string",
+        "title": "Horaire suivant (facultatif)",
+        "default": "",
+        "maxLength": 12,
+        "x-section": "Textes"
+      },
+      "_color": {
+        "type": "string",
+        "title": "Couleur de charte",
+        "default": "or",
+        "enum": [
+          "or",
+          "vert",
+          "rouge"
+        ],
+        "x-section": "Charte"
+      },
+      "_out_mode": {
+        "type": "string",
+        "title": "Déclencher OUT",
+        "default": "duration",
+        "enum": [
+          "manual",
+          "duration"
+        ],
+        "x-section": "Sortie automatique"
+      },
+      "_out_duration_seconds": {
+        "type": "number",
+        "title": "Durée avant OUT, entrée incluse (s)",
+        "default": 9,
+        "minimum": 2.4,
+        "maximum": 86400,
+        "x-section": "Sortie automatique",
+        "multipleOf": 0.04,
+        "description": "L’animation OUT de 1 s s’ajoute à cette durée. UPDATE ne relance pas le compteur."
+      },
+      "_audio_enabled": {
+        "type": "boolean",
+        "title": "Activer un accompagnement audio",
+        "default": false,
+        "x-section": "Audio facultatif"
+      },
+      "_audio_url": {
+        "title": "Fichier audio / URL",
+        "default": "",
+        "x-section": "Audio facultatif",
+        "anyOf": [
+          {
+            "type": "string",
+            "maxLength": 2048
+          },
+          {
+            "type": "object",
+            "required": [
+              "url",
+              "name",
+              "mimeType"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "url": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "mimeType": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "_audio_start_seconds": {
+        "type": "number",
+        "title": "Entrée audio (s)",
+        "default": 0,
+        "minimum": 0,
+        "maximum": 86400,
+        "x-section": "Audio facultatif",
+        "multipleOf": 0.04
+      },
+      "_audio_end_seconds": {
+        "type": "number",
+        "title": "Sortie audio (s), 0 = fin",
+        "default": 0,
+        "minimum": 0,
+        "maximum": 86400,
+        "x-section": "Audio facultatif",
+        "multipleOf": 0.04
+      },
+      "_audio_loop": {
+        "type": "boolean",
+        "title": "Boucler cet audio",
+        "default": false,
+        "x-section": "Audio facultatif"
+      },
+      "_audio_volume": {
+        "type": "number",
+        "title": "Volume audio (0 à 1)",
+        "default": 1,
+        "minimum": 0,
+        "maximum": 1,
+        "x-section": "Audio facultatif"
+      }
+    },
+    "width": 1920,
+    "height": 1080,
+    "fps": 25,
+    "legacyOfflineDeclared": false,
+    "exportQualification": "pending",
+    "siteQualification": "pending"
+  },
+  {
+    "id": "BTV_Passerelle_Replay",
+    "name": "La passerelle replay",
+    "description": "Cartouche replay compact sur fond sombre discret, typographie BTV hiérarchisée et QR dynamique de 198 px.",
+    "version": "1.1.0",
+    "libraryVersion": "1.7.0",
+    "category": "Replay",
+    "module": "/library/v1.7.0/BTV_Passerelle_Replay/graphic.mjs",
+    "preview": "/library/v1.7.0/BTV_Passerelle_Replay/preview.html",
+    "fields": {
+      "_label": {
+        "type": "string",
+        "title": "Signature",
+        "default": "BÉNIN TV · REPLAY",
+        "maxLength": 40,
+        "x-section": "Textes"
+      },
+      "_heading": {
+        "type": "string",
+        "title": "Invitation",
+        "default": "À revoir",
+        "maxLength": 38,
+        "x-section": "Textes"
+      },
+      "_title": {
+        "type": "string",
+        "title": "Programme",
+        "default": "L’Islam en partage",
+        "maxLength": 110,
+        "x-section": "Textes"
+      },
+      "_replay_url": {
+        "type": "string",
+        "title": "Adresse du replay — QR code",
+        "default": "",
+        "maxLength": 200,
+        "x-section": "Replay",
+        "description": "Adresse HTTP(S) officielle. Obligatoire avant IN. Préférer une URL courte : QR limité à 37 modules pour rester lisible à l’écran."
+      },
+      "_color": {
+        "type": "string",
+        "title": "Couleur de charte",
+        "default": "or",
+        "enum": [
+          "or",
+          "vert",
+          "rouge"
+        ],
+        "x-section": "Charte"
+      },
+      "_out_mode": {
+        "type": "string",
+        "title": "Déclencher OUT",
+        "default": "duration",
+        "enum": [
+          "manual",
+          "duration"
+        ],
+        "x-section": "Sortie automatique"
+      },
+      "_out_duration_seconds": {
+        "type": "number",
+        "title": "Durée avant OUT, entrée incluse (s)",
+        "default": 14.8,
+        "minimum": 2.2,
+        "maximum": 86400,
+        "x-section": "Sortie automatique",
+        "multipleOf": 0.04,
+        "description": "L’animation OUT de 1.2 s s’ajoute à cette durée. UPDATE ne relance pas le compteur."
+      },
+      "_audio_enabled": {
+        "type": "boolean",
+        "title": "Activer un accompagnement audio",
+        "default": false,
+        "x-section": "Audio facultatif"
+      },
+      "_audio_url": {
+        "title": "Fichier audio / URL",
+        "default": "",
+        "x-section": "Audio facultatif",
+        "anyOf": [
+          {
+            "type": "string",
+            "maxLength": 2048
+          },
+          {
+            "type": "object",
+            "required": [
+              "url",
+              "name",
+              "mimeType"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "url": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "mimeType": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "_audio_start_seconds": {
+        "type": "number",
+        "title": "Entrée audio (s)",
+        "default": 0,
+        "minimum": 0,
+        "maximum": 86400,
+        "x-section": "Audio facultatif",
+        "multipleOf": 0.04
+      },
+      "_audio_end_seconds": {
+        "type": "number",
+        "title": "Sortie audio (s), 0 = fin",
+        "default": 0,
+        "minimum": 0,
+        "maximum": 86400,
+        "x-section": "Audio facultatif",
+        "multipleOf": 0.04
+      },
+      "_audio_loop": {
+        "type": "boolean",
+        "title": "Boucler cet audio",
+        "default": false,
+        "x-section": "Audio facultatif"
+      },
+      "_audio_volume": {
+        "type": "number",
+        "title": "Volume audio (0 à 1)",
+        "default": 1,
+        "minimum": 0,
+        "maximum": 1,
+        "x-section": "Audio facultatif"
+      }
+    },
+    "width": 1920,
+    "height": 1080,
+    "fps": 25,
+    "legacyOfflineDeclared": false,
+    "exportQualification": "pending",
+    "siteQualification": "pending"
+  }
+]

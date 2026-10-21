@@ -1,0 +1,25 @@
+.member-invitations{align-items:start}
+.member-invitations .panel{min-width:0}
+.member-invitation-help{margin-top:14px;color:var(--muted);font-size:.75rem;line-height:1.6;max-width:64ch}
+.member-invitations .invitation-member{display:grid;grid-template-columns:minmax(0,1fr);gap:13px;align-items:start;padding:24px 0}
+.member-invitations .member-identity{display:grid;gap:3px;overflow-wrap:anywhere}
+.member-invitations .member-identity strong{font-size:.875rem}
+.member-invitations .member-identity :is(small,span){font-size:.75rem;color:var(--muted)}
+.member-invitations .member-access-status{display:grid;gap:7px;margin:0;font-size:.75rem;line-height:1.5}
+.member-access-status>div{display:grid;grid-template-columns:5.25rem minmax(0,1fr);gap:10px}
+.member-access-status dt{color:var(--muted)}
+.member-access-status dd{margin:0;overflow-wrap:anywhere}
+.member-access-status time{color:var(--muted);font-variant-numeric:tabular-nums}
+.member-invitations .member-access-status small{display:block;margin-top:3px;font-size:inherit}
+.member-access-status .invitation-failed{color:var(--brand-red)}
+.member-access-status .invitation-pending{color:var(--ink)}
+.member-invitations .member-row-actions{justify-content:flex-start;gap:8px;margin-top:3px}
+.member-invitations .member-row-actions button{min-height:44px;font-size:.75rem;white-space:normal;text-align:center}
+html:root:not([data-theme='light']) .member-access-status .invitation-failed{color:#ffd1c1}
+@media(max-width:560px){
+  .member-invitations .panel{padding:20px 18px}
+  .member-invitations .member-row-actions{gap:8px}
+  .member-invitations .member-invite-button{flex-basis:100%}
+  .member-invitations .member-row-actions button{font-size:.75rem;padding-inline:12px}
+  .member-access-status>div{grid-template-columns:4.5rem minmax(0,1fr);gap:8px}
+}

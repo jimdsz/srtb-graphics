@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="fr"><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Recette responsive · Graphics</title>
+<style>
+body{margin:0;padding:16px;font:14px system-ui;background:#e9ebe7;color:#202125}h1{font-size:20px;margin:0 0 8px}p{margin:8px 0}nav{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}button,select{font:inherit;padding:10px;min-height:44px}button[aria-pressed=true]{background:#efbd32}iframe{display:block;border:0;background:#111214;max-width:none}#viewport{overflow:auto;border:1px solid #92969d}table{border-collapse:collapse;font-size:12px;margin-top:16px}td,th{padding:7px;border:1px solid #92969d;text-align:left}output{white-space:pre-wrap;display:block;margin:12px 0;font:12px ui-monospace,monospace}details{margin-top:14px}
+</style>
+<h1>Recette responsive · cadre complet</h1>
+<p>Studio réel, projets fictifs. L’iframe impose une largeur et une hauteur CSS mesurées. Aucune exportation ni écriture distante.</p>
+<nav aria-label="Dimensions de recette">
+<button data-size="1366,768">1366 × 768</button><button data-size="1280,720">1280 × 720</button><button data-size="1024,768">1024 × 768</button><button data-size="768,1024">768 × 1024</button><button data-size="390,844">390 × 844</button>
+<label>Format <select id="format"><option value="tv">TV 16:9</option><option value="vertical">Vertical 9:16</option><option value="portrait">Portrait 4:5</option></select></label>
+<label>Thème <select id="theme"><option value="dark">Sombre</option><option value="light">Clair</option></select></label>
+<button id="measure">Mesurer et centrer l’aperçu</button><button id="matrix">Vérifier les 30 combinaisons</button>
+</nav>
+<output id="status" aria-live="polite">Prêt pour la recette.</output>
+<div id="viewport"><iframe id="surface" title="Studio de recette" style="width:1366px;height:768px"></iframe></div>
+<table><thead><tr><th>Vue</th><th>Format / thème</th><th>Largeur réelle</th><th>Cadre</th><th>Ratio</th><th>Page</th><th>Moniteur + commandes</th><th>Résultat</th></tr></thead><tbody id="results"></tbody></table>
+<details><summary>Mesures JSON</summary><output id="evidence"></output></details>
+<script type="module">
+const frame=document.querySelector('#surface'),status=document.querySelector('#status'),format=document.querySelector('#format'),theme=document.querySelector('#theme');
+let size=[1366,768],rows=[];
+function resize(){frame.style.width=size[0]+'px';frame.style.height=size[1]+'px';document.querySelectorAll('[data-size]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.size===size.join(','))));}
+function load(){resize();frame.src=`./preview-responsive-surface.html?format=${format.value}&theme=${theme.value}`;}
+document.querySelectorAll('[data-size]').forEach(b=>b.onclick=()=>{size=b.dataset.size.split(',').map(Number);resize();});format.onchange=theme.onchange=load;
+const waitReady=()=>new Promise((resolve,reject)=>{const started=Date.now();const id=setInterval(()=>{const d=frame.contentDocument;if(d?.querySelector('.monitor-sync')?.textContent?.includes('Aperçu à jour')){clearInterval(id);resolve();}else if(Date.now()-started>45000){clearInterval(id);reject(Error('Aperçu non prêt après 45 s'));}},150);});
+function measure(){
+ const w=frame.contentWindow,d=frame.contentDocument,screen=d.querySelector('.preview-screen'),panel=d.querySelector('.preview-panel'),transport=d.querySelector('.monitor-transport');
+ if(!screen||!panel||!transport)throw Error('Éditeur pas encore ouvert');
+ const sr=screen.getBoundingClientRect(),pr=panel.getBoundingClientRect(),host=d.querySelector('.graphic-host').getBoundingClientRect();
+ const header=d.querySelector(w.innerWidth<=800?'.graphics-header':'.graphics-masthead').getBoundingClientRect().height;
+ const desired={tv:16/9,vertical:9/16,portrait:4/5}[format.value];
+ const controls=[...d.querySelectorAll('.monitor-transport button,.workspace-tabs button,.workspace-actions button')].filter(n=>n.getBoundingClientRect().width);
+ const clippedControls=controls.filter(n=>{const r=n.getBoundingClientRect(),parent=n.closest('.preview-panel,.editor-sidebar,.workspace-actions').getBoundingClientRect();return r.left<parent.left-1||r.right>parent.right+1;}).map(n=>n.getAttribute('aria-label')||n.textContent);
+ const root=d.querySelector('.graphic-host>canvas')||d.querySelector('.graphic-host')?.firstElementChild?.shadowRoot?.querySelector('svg');
+ const rootRect=root?.getBoundingClientRect();
+ const surfaceOK=!!rootRect&&Math.abs(rootRect.width-sr.width)<1&&Math.abs(rootRect.height-sr.height)<1;
+ const smallControls=controls.filter(n=>n.getBoundingClientRect().height<43.5).map(n=>n.getAttribute('aria-label')||n.textContent);
+ w.scrollTo({top:w.scrollY+pr.top-header-12,behavior:'instant'});
+ const after=panel.getBoundingClientRect(),tr=transport.getBoundingClientRect();
+ const result={view:size.join('×'),format:format.value,theme:theme.value,innerWidth:w.innerWidth,clientWidth:d.documentElement.clientWidth,innerHeight:w.innerHeight,screen:[+sr.width.toFixed(2),+sr.height.toFixed(2)],ratioOK:Math.abs(sr.width/sr.height-desired)<.002,hostOK:Math.abs(host.width-sr.width)<1&&Math.abs(host.height-sr.height)<1,pageOverflow:d.documentElement.scrollWidth>d.documentElement.clientWidth+1,clippedControls,panelHeight:+pr.height.toFixed(2),availableHeight:w.innerHeight-header-24,monitorFits:after.top>=header-1&&after.bottom<=w.innerHeight+1,transportVisible:tr.bottom<=w.innerHeight+1&&tr.top>=header-1,renderSurface:rootRect?[+rootRect.width.toFixed(2),+rootRect.height.toFixed(2)]:null};
+ result.surfaceOK=surfaceOK;result.smallControls=smallControls;
+ result.pass=result.ratioOK&&result.hostOK&&surfaceOK&&!result.pageOverflow&&!clippedControls.length&&!smallControls.length&&result.monitorFits;
+ rows.push(result);document.querySelector('#evidence').textContent=JSON.stringify(rows,null,2);
+ const trNode=document.createElement('tr');for(const text of [result.view,`${result.format} / ${result.theme}`,`${result.innerWidth} / utile ${result.clientWidth}`,result.screen.join(' × '),result.ratioOK?'OK':'ÉCHEC',result.pageOverflow?'DÉBORDE':'OK',`${result.panelHeight} / ${result.availableHeight}`,result.pass?'PASS':'FAIL']){const td=document.createElement('td');td.textContent=text;trNode.append(td);}document.querySelector('#results').append(trNode);
+ status.textContent=`${result.pass?'PASS':'FAIL'} · ${result.view} ${result.format} ${result.theme} · cadre ${result.screen.join(' × ')} · ratio ${result.ratioOK?'conservé':'incorrect'} · moniteur ${result.panelHeight}px pour ${result.availableHeight}px disponibles · contrôles ${clippedControls.length?'débordants':'contenus'} · défilement horizontal ${result.pageOverflow?'oui':'non'}`;
+ return result;
+}
+document.querySelector('#measure').onclick=async()=>{try{await waitReady();measure();}catch(e){status.textContent=String(e);}};
+document.querySelector('#matrix').onclick=async()=>{const button=document.querySelector('#matrix');button.disabled=true;rows=[];document.querySelector('#results').replaceChildren();try{for(const s of [[1366,768],[1280,720],[1024,768],[768,1024],[390,844]])for(const f of ['tv','vertical','portrait'])for(const t of ['dark','light']){size=s;format.value=f;theme.value=t;load();status.textContent=`Contrôle ${size.join('×')} ${f} ${t}…`;await new Promise(resolve=>frame.addEventListener('load',resolve,{once:true}));await waitReady();await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));measure();}status.textContent=`Terminé : ${rows.filter(r=>r.pass).length}/${rows.length} PASS. Mesures détaillées dans le tableau et JSON.`;}catch(e){status.textContent=String(e);}finally{button.disabled=false;}};
+load();
+</script></html>

@@ -1,0 +1,48 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "srtb-graphics",
+  "send_metrics": false,
+  "pages_build_output_dir": "./dist-studio",
+  "compatibility_date": "2026-09-21",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "AUTH_MODE": "firebase",
+    "FIREBASE_PROJECT_ID": "NOT_CONFIGURED",
+    // Public web configuration, not an administrative credential.
+    "FIREBASE_API_KEY": "NOT_CONFIGURED",
+    "STORAGE_PROVIDER": "b2",
+    "B2_REGION": "eu-central-003",
+    "B2_BUCKET": "NOT_CONFIGURED",
+    "ACCESS_TEAM_DOMAIN": "NOT_CONFIGURED",
+    "ACCESS_AUDIENCE": "NOT_CONFIGURED",
+    "APP_ENV": "production"
+  },
+  "d1_databases": [{
+    "binding": "DB",
+    "database_name": "srtb-graphics-studio",
+    "database_id": "00000000-0000-0000-0000-000000000000",
+    "migrations_dir": "migrations"
+  }],
+  "env": {
+    "preview": {
+      "vars": {
+        "AUTH_MODE": "firebase",
+        "FIREBASE_PROJECT_ID": "NOT_CONFIGURED",
+        "FIREBASE_API_KEY": "NOT_CONFIGURED",
+        "STORAGE_PROVIDER": "b2",
+        "B2_REGION": "eu-central-003",
+        "B2_BUCKET": "NOT_CONFIGURED",
+        "ACCESS_TEAM_DOMAIN": "NOT_CONFIGURED",
+        "ACCESS_AUDIENCE": "NOT_CONFIGURED",
+        // Preview uses the same strict security mode, never development bypasses.
+        "APP_ENV": "production"
+      },
+      "d1_databases": [{
+        "binding": "DB",
+        "database_name": "srtb-graphics-studio-preview",
+        "database_id": "00000000-0000-0000-0000-000000000000",
+        "migrations_dir": "migrations"
+      }]
+    }
+  }
+}

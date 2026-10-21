@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Recette locale — voix des projets À faire</title>
+<style>body{font:16px system-ui;background:#171b1d;color:#eee;margin:32px;max-width:1000px}input,button{font:inherit;padding:12px;display:block;margin:12px 0;width:min(90%,900px)}pre{white-space:pre-wrap;overflow-wrap:anywhere}#status{padding:16px;border:1px solid #69727a}</style></head>
+<body><h1>À faire → projets enregistrés → mixage sonore</h1>
+<p>Banc local uniquement. Lecture des projets de test sans les modifier. Le fichier vidéo sert à reconnecter la référence vérifiée ; il n’est pas envoyé. Ce test ne valide ni les mots prononcés, ni un encodeur vidéo.</p>
+<label>Identifiants des trois bandes-annonces<input id="projects" value="2eb8d311-a9c7-40e1-8019-6cc792d1d573,531125fd-1fec-426b-9f0a-3c4253494a2c,fdf2d94f-2298-4933-8f45-b61c82b1d047"></label>
+<label>Reconnecter ba-programme.mp4<input id="file" type="file" accept="video/mp4"></label>
+<button id="run" disabled>Contrôler le son des projets enregistrés</button>
+<p id="status" role="status">Choisissez le fichier vidéo local utilisé pour ces projets.</p><pre id="result"></pre>
+<script type="module" src="./planner-stored-audio-qualification.ts"></script></body></html>

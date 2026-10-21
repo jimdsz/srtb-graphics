@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Recette locale — semainier livré</title>
+<style>body{font:16px system-ui;background:#171b1d;color:#eee;margin:24px;max-width:1100px}input,button{font:inherit;padding:12px;display:block;margin:12px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere}#status{padding:16px;border:1px solid #69727a}.frames{display:flex;flex-wrap:wrap;gap:12px}.frames img{width:240px;height:auto}figure{margin:0}figcaption{max-width:240px}</style></head>
+<body><h1>À faire → semainiers privés → fichiers MOV vérifiés</h1>
+<p>Recette uniquement sur le serveur local 5192. Crée une préparation de test et trois brouillons dans la base temporaire. Les fichiers restent sur le poste. Les sept noms viennent du scénario de grille déjà qualifié ; la vidéo de démonstration n’est pas un choix éditorial pour ces programmes. Signature désactivée explicitement ; voix « Cette semaine » sélectionnée ci-dessous.</p>
+<label>Vidéo de démonstration<input id="video" type="file" accept="video/mp4"></label>
+<label>Voix « cette semaine.mp3 »<input id="voice" type="file" accept="audio/mpeg"></label>
+<button id="run">Créer puis contrôler les trois exports locaux</button><button id="cancel" disabled>Arrêter</button>
+<p id="status" role="status">Choisissez les deux fichiers locaux.</p><div id="frames" class="frames"></div><pre id="result"></pre>
+<script type="module" src="./planner-weekly-delivery.ts"></script></body></html>

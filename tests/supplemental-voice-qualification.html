@@ -1,0 +1,6 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Qualification locale des voix additionnelles</title>
+<style>body{background:#121713;color:#eef2ec;font:16px system-ui;margin:24px;max-width:1100px}button{padding:12px;margin:8px 8px 8px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere}#scene{width:480px;height:270px;overflow:hidden}#scene>*{transform:scale(.25);transform-origin:top left;width:1920px;height:1080px;display:block}</style></head>
+<body><h1>Voix additionnelles — recette locale</h1><p>Signal synthétique uniquement, coupé avant les haut-parleurs. Les huit vrais moteurs d’aperçu sont comparés au mix PCM d’export. Aucun fichier utilisateur ni envoi cloud. Ne qualifie ni l’encodage du conteneur ni la norme de niveau sonore.</p>
+<button id="run">Contrôler les huit moteurs · 48 kHz</button><button id="mix">Contrôler les huit mixages d’export seuls</button><button id="cancel" disabled>Annuler</button><p id="status" role="status">Prêt</p><div id="scene" aria-label="Moteur testé"></div><pre id="result"></pre>
+<script type="module" src="./supplemental-voice-qualification.ts"></script></body></html>

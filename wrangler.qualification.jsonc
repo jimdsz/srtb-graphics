@@ -1,0 +1,9 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "srtb-graphics-local-qualification",
+  "compatibility_date": "2026-09-21",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {"APP_ENV":"development","STORAGE_PROVIDER":"local","ACCESS_TEAM_DOMAIN":"NOT_CONFIGURED","ACCESS_AUDIENCE":"NOT_CONFIGURED"},
+  "d1_databases": [{"binding":"DB","database_name":"srtb-graphics-local-only","database_id": "00000000-0000-0000-0000-000000000000","migrations_dir":"migrations"}],
+  "r2_buckets": [{"binding":"MEDIA","bucket_name":"srtb-graphics-local-only"}]
+}

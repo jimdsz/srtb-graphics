@@ -1,0 +1,221 @@
+/* SRTB application themes. The absence of a preference deliberately means dark.
+   Higher root specificity keeps these tokens independent of the imported base
+   tokens and of the light composition. No media filters or engine CSS changes. */
+html:root:not([data-theme='light']) {
+  color-scheme:dark;
+  --canvas:#131513;
+  --surface:#1b1f19;
+  --surface-subtle:#262c23;
+  --ink:#eef1e8;
+  --muted:#afb8a6;
+  --line:#3d4637;
+  --strong-line:#68765d;
+  --control-fill:#171b15;
+  --control-border:#68765d;
+  --control-hover:#31392b;
+  --text-on-accent:#191d13;
+  --focus:var(--brand-gold);
+  --label:var(--ink);
+  --label-secondary:var(--muted);
+  --bg:var(--canvas);
+  --bg-secondary:var(--surface);
+  --bg-tertiary:var(--surface-subtle);
+  --shadow-4:0 18px 65px #0008,0 2px 8px #0005;
+  background:var(--canvas);
+  scrollbar-color:#66725b var(--canvas);
+}
+
+html:root[data-theme='light'] {
+  color-scheme:light;
+  --control-fill:#fff;
+  --control-border:#b8bfb0;
+  --text-on-accent:#191d13;
+  --focus:var(--brand-green);
+  scrollbar-color:auto;
+}
+
+/* One switch follows the account through the portal, Graphics and sign-in. */
+.suite-header .suite-account { min-width:0; }
+.suite-account>div:not(.account-actions) { min-width:0; }
+.suite-account .account-actions,.profile .account-actions {
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  flex-wrap:nowrap;
+  flex-shrink:0;
+  gap:10px;
+}
+.theme-toggle {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  min-width:44px;
+  min-height:44px;
+  padding:10px 13px;
+  font-size:.6875rem;
+  font-weight:400;
+  white-space:nowrap;
+}
+.graphics-header .theme-toggle {
+  background:transparent;
+  border-color:var(--stage-line);
+  color:var(--stage-ink);
+}
+.graphics-header .theme-toggle:hover:not(:disabled) { background:var(--stage-line);border-color:var(--stage-muted); }
+.graphics-header .theme-toggle:focus-visible { outline-color:var(--brand-gold); }
+.auth-masthead>.theme-toggle { margin-left:auto;align-self:center; }
+.auth-masthead>span:not(.suite-wordmark) { font-size:.75rem;color:var(--muted); }
+
+/* Controls stay legible against both page and elevated panel surfaces. */
+html:root:not([data-theme='light']) :is(button,a,input,select,textarea,summary):focus-visible {
+  outline-color:var(--focus);
+}
+html:root:not([data-theme='light']) .skip-link { border-color:var(--focus); }
+html:root:not([data-theme='light']) .primary {
+  background:var(--brand-gold);
+  border-color:var(--brand-gold);
+  color:var(--text-on-accent);
+}
+html:root:not([data-theme='light']) .primary:hover:not(:disabled) {
+  background:#ffd04a;
+  border-color:#ffd04a;
+  color:var(--text-on-accent);
+}
+html:root:not([data-theme='light']) button.primary:disabled {
+  opacity:1;
+  background:#424b38;
+  border-color:#515d44;
+  color:#c1cbb6;
+}
+html:root:not([data-theme='light']) button:not(.primary):disabled {
+  opacity:1;
+  background:#1a1f17;
+  border-color:#3d4637;
+  color:#919e84;
+}
+html:root:not([data-theme='light']) .member-row button.danger { background:#321c1a; border-color:#86574d; color:#ffb3a7; }
+html:root:not([data-theme='light']) .member-row button.danger:hover:not(:disabled) { background:#45231f; border-color:#cf7467; }
+html:root:not([data-theme='light']) .auth-content>form~.row>button.quiet:disabled {
+  background:transparent;
+  border-color:transparent;
+  color:var(--muted);
+}
+html:root:not([data-theme='light']) :is(input:not(.project-title),select,textarea) {
+  background:var(--control-fill);
+  border-color:var(--control-border);
+  color:var(--ink);
+  caret-color:var(--brand-gold);
+}
+html:root:not([data-theme='light']) :is(input,textarea)::placeholder {
+  color:var(--muted);
+  opacity:1;
+}
+html:root:not([data-theme='light']) :is(input:not(.project-title),select,textarea):disabled {
+  background:#1c2218;
+  border-color:#46503d;
+  color:#a0ac94;
+  opacity:1;
+}
+html:root:not([data-theme='light']) :is(input[type='checkbox'],input[type='range'],progress) {
+  accent-color:var(--brand-gold);
+}
+html:root:not([data-theme='light']) input[type='file']::file-selector-button {
+  padding:8px 12px;
+  margin-right:12px;
+  border:1px solid var(--control-border);
+  border-radius:2px;
+  font:inherit;
+  background:var(--surface-subtle);
+  color:var(--ink);
+  cursor:pointer;
+}
+html:root:not([data-theme='light']) input:-webkit-autofill {
+  -webkit-box-shadow:0 0 0 1000px var(--control-fill) inset;
+  -webkit-text-fill-color:var(--ink);
+  caret-color:var(--brand-gold);
+}
+html:root:not([data-theme='light']) .project-title:hover,
+html:root:not([data-theme='light']) .project-title:focus {
+  border-color:var(--control-border);
+  background:var(--surface);
+}
+
+/* Status colour conveys meaning without flashing pale boxes in a dark room. */
+html:root:not([data-theme='light']) .notice {
+  background:#21301f;
+  border-color:#566f47;
+  border-left-color:#abd189;
+  color:#c9dfba;
+}
+html:root:not([data-theme='light']) .notice.error {
+  background:#35231e;
+  border-color:#926150;
+  border-left-color:#f1a28b;
+  color:#ffd1c1;
+}
+html:root:not([data-theme='light']) .notice.warning {
+  background:#302b1a;
+  border-color:#8c7a40;
+  border-left-color:var(--brand-gold);
+  color:#ead8a2;
+}
+html:root:not([data-theme='light']) .notice :is(p,small,.muted) { color:inherit; }
+html:root:not([data-theme='light']) .badge { background:#2d3526;color:#ccd5c1; }
+html:root:not([data-theme='light']) .badge.submitted { background:#3d3317;color:#f0d176; }
+html:root:not([data-theme='light']) .badge.approved { background:#243821;color:#baddaa; }
+html:root:not([data-theme='light']) .badge.rejected { background:#432b23;color:#ffccbb; }
+html:root:not([data-theme='light']) .qualification { background:#302b1a;color:#ead8a2; }
+html:root:not([data-theme='light']) .tool-state.qualification {
+  background:transparent;
+  border-color:#8c7a40;
+  color:var(--brand-gold);
+}
+html:root:not([data-theme='light']) .status-label { color:#dfcd93; }
+html:root:not([data-theme='light']) .status-label::before { background:var(--brand-gold); }
+
+/* Yellow remains a printed accent, always with dark lettering. */
+html:root:not([data-theme='light']) :is(.spotlight-heading,.nav-count) { color:var(--text-on-accent); }
+html:root:not([data-theme='light']) .tool-feature-copy .button-link,
+html:root:not([data-theme='light']) .preview-gate>button:hover { color:var(--text-on-accent); }
+html:root:not([data-theme='light']) .tool-feature { outline:1px solid var(--line);outline-offset:-1px; }
+html:root:not([data-theme='light']) .library-spotlight { background:var(--surface);outline:1px solid var(--line);outline-offset:-1px; }
+html:root:not([data-theme='light']) :is(.recent-projects,.catalogue-layout) { border-top-color:var(--strong-line); }
+html:root:not([data-theme='light']) .catalogue-choice[aria-pressed='true'] {
+  background:#303a27;
+  border-color:#596b49;
+  color:var(--ink);
+  box-shadow:inset 3px 0 0 var(--brand-gold);
+}
+html:root:not([data-theme='light']) .catalogue-choice[aria-pressed='true']:hover { background:#3c4930; }
+html:root:not([data-theme='light']) .catalogue-choice[aria-pressed='true'] small { color:#c5d1b7; }
+html:root:not([data-theme='light']) .catalogue-choice[aria-pressed='true']>svg { color:var(--brand-gold); }
+html:root:not([data-theme='light']) .tabs button[aria-current='page'] { border-bottom-color:var(--brand-gold); }
+html:root:not([data-theme='light']) .clip { background:var(--control-fill); }
+html:root:not([data-theme='light']) .native-dialog { border-color:#6b7a5d;border-top-color:var(--brand-gold); }
+html:root:not([data-theme='light']) .native-dialog::backdrop { background:#070b08d9; }
+
+/* The monitor and original engine are a separate viewing surface. Theme state
+   must not change the renderer's UA colour scheme, image data or palette. */
+.graphic-host { color-scheme:light; }
+
+@media(max-width:800px) {
+  .theme-toggle { width:44px;min-width:44px;padding:0; }
+  .theme-toggle>span { display:none; }
+  .suite-account .account-actions,.profile .account-actions { gap:8px; }
+}
+@media(max-width:560px) {
+  .suite-header .suite-account strong { max-width:112px; }
+  .auth-masthead>.theme-toggle { flex-shrink:0; }
+}
+
+@media(prefers-contrast:more) {
+  html:root:not([data-theme='light']) {
+    --muted:#d3ddc8;
+    --line:#7b896e;
+    --strong-line:#bbcbaa;
+    --control-border:#adbe99;
+  }
+  html:root:not([data-theme='light']) :is(.panel,.editor-sidebar,.preview-panel,.native-dialog) { border-color:var(--control-border); }
+  html:root:not([data-theme='light']) .badge { outline:1px solid currentColor; }
+}

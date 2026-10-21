@@ -1,0 +1,32 @@
+import {RotateCcw} from 'lucide-react';
+import type {CommercialLogo} from './model';
+import {commercialLogoAutoAligned,editCommercialLogo} from './logo-layout';
+import type {CommercialLogoSize} from './logo-layout';
+import {commercialLogoQuality} from './logo-presentation';
+
+export default function LogoSettings({value,size,onChange}:{value:CommercialLogo;size?:CommercialLogoSize|null;onChange:(value:CommercialLogo)=>void}){
+  const adaptive=value.presentation==='adaptive',autoAligned=commercialLogoAutoAligned(value),quality=size?commercialLogoQuality(value,size):null;
+  function patch(next:Partial<CommercialLogo>){onChange(size?editCommercialLogo(value,next,size):{...value,...next});}
+  function reset(){onChange({url:value.url,name:value.name,...(adaptive?{presentation:'adaptive' as const,crop:true,removeBackground:true}:{}),position:'bottom-right',mode:'original',scale:1,opacity:1,offsetX:0,offsetY:0,plate:adaptive?'showcase':'none',motion:'fade',delay:0});}
+  return <div className="commercial-logo-settings">
+    {adaptive?<p className="commercial-text-help">Le format et les marges s’ajustent automatiquement, sans déformer le logo.</p>:<div><button type="button" onClick={()=>onChange({url:value.url,name:value.name,presentation:'adaptive',crop:true,removeBackground:true,position:'bottom-right',mode:'original',scale:1,opacity:1,offsetX:0,offsetY:0,plate:'showcase',motion:'fade',delay:0})}>Adapter la présentation du logo</button><p className="commercial-text-help">Ajuste le détourage, le format et le support.</p></div>}
+    <label>Emplacement du logo<select value={value.position} onChange={e=>patch({position:e.target.value as CommercialLogo['position'],alignment:undefined,offsetX:0,offsetY:0})}><option value="bottom-right">En bas à droite</option><option value="top-right">En haut à droite</option><option value="bottom-center">En bas au centre</option></select></label>
+    {autoAligned?<p className="commercial-text-help">Le bas du logo reste aligné avec « Le fil des annonces », même quand sa taille change.</p>:adaptive&&value.position==='top-right'?<p className="commercial-text-help">Le logo garde les marges du haut et de droite quand sa taille change.</p>:null}
+    <label>Taille du logo · {Math.round(value.scale*100)} %<input type="range" min="0.25" max="4" step="0.05" value={value.scale} onChange={e=>patch({scale:Number(e.target.value)})}/></label>
+    {quality?.message?<p className="commercial-notice" role="status">{quality.message}</p>:null}
+    {adaptive?<div><label className="commercial-check"><input type="checkbox" checked={value.removeBackground===true} onChange={e=>patch({removeBackground:e.target.checked,mode:'original'})}/>Détourage automatique du fond uni</label><p className="commercial-text-help" role="status">{value.removeBackground!==true?'Fond d’origine conservé.':size?.backgroundStatus==='removed'?'Fond uni retiré. Les couleurs du logo sont conservées.':size?.backgroundStatus==='transparent'?'Le logo est déjà transparent.':size?.backgroundStatus==='complex'?'Fond conservé pour protéger les détails du logo. Le support adapte son contraste.':'Analyse du fond…'}</p><small>Le fichier original reste disponible : décochez pour retrouver son fond.</small></div>:null}
+    <label>Support du logo<select value={value.plate??'none'} onChange={e=>patch({plate:e.target.value as CommercialLogo['plate']})}><option value="showcase">Écrin · contraste adapté</option>{adaptive?<option value="auto">Automatique · blanc ou noir</option>:null}<option value="none">Transparent</option><option value="white">Blanc</option><option value="black">Noir</option>{!adaptive||value.plate==='gold'?<option value="gold">Or</option>:null}{!adaptive||value.plate==='green'?<option value="green">Vert</option>:null}</select></label>
+    <details className="commercial-details"><summary>Réglages précis et apparition</summary><div className="commercial-details-content">
+      {adaptive&&value.position!=='top-right'?<><label className="commercial-check"><input type="checkbox" checked={autoAligned} onChange={e=>patch({alignment:e.target.checked?undefined:'free',offsetY:0})}/>Alignement automatique avec Le fil des annonces</label><small>{autoAligned?'Désactivez cet alignement pour déplacer le logo verticalement.':'Position libre : vous pouvez régler le décalage vertical.'}</small></>:null}
+      <div className="commercial-pair"><label>Décalage horizontal<input type="number" min="-600" max="600" step="5" value={Number((value.offsetX??0).toFixed(2))} onChange={e=>patch({offsetX:Number(e.target.value)})}/></label><label>Décalage vertical<input type="number" min="-400" max="400" step="5" disabled={autoAligned} value={autoAligned?0:Number((value.offsetY??0).toFixed(2))} onChange={e=>patch({offsetY:Number(e.target.value)})}/></label></div>
+      <label>Couleurs du logo<select value={value.mode} onChange={e=>patch({mode:e.target.value as CommercialLogo['mode']})}><option value="original">Couleurs d’origine</option><option value="monochrome" disabled={adaptive&&size?.hasTransparency===false}>Blanc perlé · logo transparent</option></select></label>
+      {adaptive&&size?.hasTransparency===false?<small>Ce fichier contient un fond opaque : gardez ses couleurs d’origine. Le mode blanc perlé nécessite un logo détouré.</small>:null}
+      {adaptive?<label className="commercial-check"><input type="checkbox" checked={value.crop!==false} onChange={e=>patch({crop:e.target.checked})}/>Retirer les marges transparentes</label>:null}
+      <label>Opacité du logo · {Math.round((value.opacity??1)*100)} %<input type="range" min="0" max="1" step="0.01" value={value.opacity??1} onChange={e=>patch({opacity:Number(e.target.value)})}/></label>
+      <label>Apparition du logo<select value={value.motion??'fade'} onChange={e=>patch({motion:e.target.value as CommercialLogo['motion']})}><option value="none">Directe</option><option value="fade">Fondu</option><option value="slide">Glissement doux</option></select></label>
+      <label>Délai d’apparition (s)<input type="number" min="0" max="5" step="0.1" value={value.delay??0} onChange={e=>patch({delay:Number(e.target.value)})}/></label>
+      <button type="button" onClick={reset}><RotateCcw size={15} aria-hidden="true"/>{adaptive?'Rétablir la présentation automatique':'Réglages d’origine'}</button>
+    </div></details>
+    <small>Les marges de l’image et le coin supérieur gauche sont protégés.</small>
+  </div>;
+}

@@ -1,0 +1,41 @@
+// Isolated fixture: no production session, real user files or remote writes.
+import {useState} from 'react';
+import {createRoot} from 'react-dom/client';
+import PlannerMediaDialog from '../src/studio/PlannerMediaDialog';
+import {plannerAPI} from '../src/studio/day-planner-api';
+import {api} from '../src/studio/api';
+import {rememberFolder} from '../src/studio/day-planner-folders';
+import type {DirectoryHandle} from '../src/studio/day-planner-folders';
+import type {DirectoryIndex,PlannerDocument,PlannerRecord,PlannerRow,ProgrammeRule} from '../src/studio/day-planner-model';
+import type {MediaAsset} from '../src/studio/domain';
+import '../src/studio/studio.css';
+import '../src/studio/theme.css';
+import '../src/studio/responsive.css';
+import '../src/studio/workbench.css';
+import '../src/studio/day-planner.css';
+if(location.origin!=='http://127.0.0.1:5192')throw Error('Banc local uniquement.');
+const member={email:'recette@example.test',name:'Recette locale',role:'designer' as const,active:1};
+const row:PlannerRow={id:'one',sheet:'Lundi',cell:'A1',raw:'',title:'Bonjour le Bénin',subtitle:'',category:'Magazine',broadcastDate:'2026-09-07',airDate:'2026-09-07',time:'06:30:00',duration:1800,included:true,kinds:['ba','popup'],formats:['tv'],issues:[],media:null,location:null};
+const blob=await(await fetch('/library/v1.7.0/BTV_Ce_Soir/lib/media/programme.jpg')).blob();
+const file=new File([blob],'Bonjour le Bénin.jpg',{type:'image/jpeg',lastModified:100});
+const directory:PlannerRecord<DirectoryIndex>={id:'folder-101',revision:2,archived:false,createdBy:member.email,updatedBy:member.email,updatedAt:'2026-09-25T00:00:00Z',data:{kind:'directory',name:'Dossier 101 — page suivante',files:[{path:file.name,name:file.name,size:file.size,modified:file.lastModified}],scannedAt:'2026-09-25T00:00:00Z',partial:false}};
+const rule:PlannerRecord<ProgrammeRule>={...directory,id:'rule',data:{kind:'rule',name:row.title,programme:'bonjour le benin',keywords:row.title,directoryId:directory.id,preferredPath:file.name,kinds:['ba']}};
+const folder={kind:'directory',name:directory.data.name,queryPermission:async()=> 'granted',requestPermission:async()=> 'granted',getFileHandle:async()=>({kind:'file',name:file.name,getFile:async()=>file})} as unknown as DirectoryHandle;
+await rememberFolder(member.email,directory.id,folder,false);
+let failCatalog=false,conflict=true,sharedScenario='Succès',sharedCalls=0;const offsets:number[]=[];let writes=0;
+plannerAPI.list=async(_kind,offset=0)=>{offsets.push(offset);if(failCatalog)throw Error('Réseau indisponible (simulation locale)');return {documents:Array.from({length:offset?1:100},(_,i)=>({id:`folder-${offset+i+1}`,revision:2,kind:'directory' as const,name:offset?directory.data.name:`Dossier ${i+1}`,archived:false,updatedAt:directory.updatedAt})),next:offset?null:100};};
+plannerAPI.rules=async()=>({rules:[rule]});
+plannerAPI.get=async<T extends PlannerDocument>(id:string)=>({...directory,id}) as unknown as PlannerRecord<T>;
+plannerAPI.save=async<T extends PlannerDocument>()=>{writes++;if(conflict)throw Object.assign(Error('Association modifiée par un collègue'),{status:409});return rule as unknown as PlannerRecord<T>;};
+const sharedAsset:MediaAsset={id:'fixture-shared',name:'Image partagée — catalogue actuel.jpg',mime_type:'image/jpeg',bytes:20,created_by:member.email,created_at:directory.updatedAt,status:'ready'};
+const realLocalMedia=api.media;
+api.media=async signal=>{
+ sharedCalls++;
+ if(sharedScenario==='Médiathèque locale réelle')return realLocalMedia(signal);
+ if(sharedScenario==='Médiathèque bloquée'&&sharedCalls===1)return new Promise(()=>{});
+ if(sharedScenario==='Médiathèque en erreur'&&sharedCalls===1)throw Error('Médiathèque indisponible (simulation locale)');
+ if(sharedScenario==='Réponse tardive'&&sharedCalls===1)return new Promise(resolve=>signal?.addEventListener('abort',()=>setTimeout(()=>resolve([{...sharedAsset,id:'stale',name:'Ancienne réponse — ne doit pas apparaître.jpg'}]),200),{once:true}));
+ return [sharedAsset];
+};
+function Fixture(){const [open,setOpen]=useState(false),[result,setResult]=useState<unknown>(null),[mode,setMode]=useState('Conflit d’association');return <main style={{padding:16}}><h1 style={{fontSize:24}}>Choix de média</h1><label>Scénario<select value={mode} onChange={e=>{setMode(e.target.value);failCatalog=e.target.value==='Catalogue indisponible';conflict=e.target.value==='Conflit d’association';sharedScenario=e.target.value;sharedCalls=0;}}>{['Conflit d’association','Catalogue indisponible','Succès','Médiathèque bloquée','Médiathèque en erreur','Réponse tardive','Médiathèque locale réelle'].map(m=><option key={m}>{m}</option>)}</select></label><button onClick={()=>setOpen(true)}>Choisir le média</button>{open?<PlannerMediaDialog row={row} member={member} onClose={()=>setOpen(false)} onSelect={(media,location,warning)=>{setResult({media,location,warning,offsets,writes,sharedCalls});setOpen(false);}}/>:null}<output aria-label="Résultat local" style={{display:'block',overflowWrap:'anywhere'}}>{JSON.stringify(result)}</output></main>;}
+createRoot(document.getElementById('root')!).render(<Fixture/>);

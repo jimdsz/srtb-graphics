@@ -1,0 +1,3 @@
+import {useState} from 'react';
+import {LogOut} from 'lucide-react';
+export default function LogoutButton(){const[busy,setBusy]=useState(false),[error,setError]=useState('');return <span><button className="icon-button" aria-label="Déconnexion" title="Déconnexion" disabled={busy} onClick={()=>{if(!window.dispatchEvent(new Event('srtb-before-logout',{cancelable:true})))return;if(import.meta.env.VITE_STUDIO_QUALIFICATION){window.location.assign('/');return;}setBusy(true);void import('./firebase-client').then(m=>m.logout()).catch(e=>{setError(e instanceof Error?e.message:'Déconnexion non confirmée');setBusy(false);});}}><LogOut size={18}/></button>{error?<span role="alert">{error}</span>:null}</span>;}

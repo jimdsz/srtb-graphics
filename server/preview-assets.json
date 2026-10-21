@@ -1,0 +1,10 @@
+{
+  "/preview-media/v1/ba-programme.mp4": {
+    "bytes": 12037476,
+    "sha256": "6cb84e0ad8a75ab7079616b0a690debc568bdb1b9a8091000ef381ba1908049f"
+  },
+  "/preview-media/v3/ba-prepared-slow-1280.mp4": {
+    "bytes": 2904384,
+    "sha256": "858c91e1867eca9c3bb4ec97cfc782a57912e2a40423b5f851228e18970fa887"
+  }
+}

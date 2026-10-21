@@ -1,0 +1,15 @@
+{
+  "status": "internal-pilot-unsigned",
+  "version": "0.3.0",
+  "file": "graphics-connector-windows-x64-b4ce64f6.exe",
+  "bytes": 23624261,
+  "sha256": "b4ce64f6ef7a5845a4095ac54f79fa7fc0ead24fea242dfbfe527557d47c4c5e",
+  "qualification": {
+    "runtime": ".qa-delivery/connector-qualification-Za9Orl/qualification.json",
+    "localMediaFlow": "reports/media-preparation-e2e/report.json",
+    "nativeInstallerUiTested": false,
+    "nativeFilePickerUiTested": false,
+    "physicalMacTested": false,
+    "wholeUserMxfTested": false
+  }
+}

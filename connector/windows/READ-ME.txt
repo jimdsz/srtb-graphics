@@ -1,0 +1,45 @@
+SRTB GRAPHICS — CONNECTEUR WINDOWS / VERSION DE VALIDATION
+
+Ce paquet est un pilote interne Windows x64, non signé.
+Il ne constitue pas une validation sur tous les postes de l’équipe.
+Ne désactivez pas Windows Defender, SmartScreen ou les règles de votre entreprise.
+
+Pour le pilote préparé sur ce poste :
+1. Ouvrez GraphicsConnector.exe dans le dossier fourni (gardez ses autres fichiers).
+2. Cliquez sur « Choisir un dossier ». Autorisez uniquement les emplacements voulus.
+   « Annuler le choix » permet de fermer une sélection restée en attente.
+3. Lancez « Indexer les médias », puis « Ouvrir Graphics et connecter ces dossiers ».
+   Confirmez dans Graphics. Dans « À faire », importez votre conducteur et ouvrez
+   « Retrouver les médias ». Vérifiez chaque correspondance avant de la relier.
+4. Retrouvez la console depuis l’icône du connecteur près de l’horloge.
+5. « Arrêter le connecteur » termine la lecture et révoque les connexions.
+
+Les médias restent sur vos disques. La recherche et les index restent locaux.
+Le bouton de retour ouvre uniquement le site officiel Graphics avec un code
+de connexion à usage unique, retiré immédiatement de l’adresse par le site.
+127.0.0.1 désigne votre propre ordinateur, pas un autre site de production.
+La désinstallation retire le programme, mais conserve les index et autorisations
+dans le dossier local « SRTB Graphics Connector » de votre compte Windows.
+Le retrait des emplacements se fait dans la console. Aucun média n’est supprimé.
+
+Le paquet de validation x64 ne qualifie pas Windows ARM64. Aucun démarrage
+automatique, service Windows, certificat racine ni règle pare-feu n’est ajouté.
+Le moteur Node.js est inclus ; vous n’avez pas à l’installer séparément.
+Voir NODE-LICENSE.txt pour sa licence et celles de ses composants.
+
+PRÉPARER UN MXF OU MOV — VERSION 0.3
+Dans un projet Graphics ou la préparation d’un programme, choisissez la vidéo.
+Graphics propose « Préparer une copie MP4 ». Confirmez le même fichier dans la
+fenêtre Windows du connecteur. Gardez ce panneau ouvert jusqu’à la fin.
+La première préparation télécharge 109 Mo depuis le distributeur FFmpeg Gyan.
+La version 9.0.2 et ses empreintes sont vérifiées avant toute exécution.
+Les licences et références source du distributeur restent dans le dossier moteur.
+Le fichier original n’est jamais modifié, envoyé ou remplacé. La copie H.264
+8 bits / AAC est stockée dans prepared-media, dans les données du connecteur.
+Ce n’est pas un master MXF sans perte. Les sources HDR ou à plusieurs pistes
+son distinctes demandent encore une préparation contrôlée dans un outil adapté.
+Le traitement d’un programme long prend du temps et de l’espace disque local.
+Annuler retire la copie incomplète ; les copies terminées sont conservées.
+Après reconnexion du navigateur, « Retrouver sur ce poste » récupère une copie
+déjà préparée sur ce même poste. Elle n’est pas partagée automatiquement.
+La préparation locale MXF/MOV n’est pas distribuée pour Mac dans cette version.

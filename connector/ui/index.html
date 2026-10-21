@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Connecteur Graphics — autorisations locales</title><link rel="stylesheet" href="/app.css"><script type="module" src="/app.js"></script></head>
+<body><main>
+<header><span class="brand">SRTB</span><span>Graphics · Vos dossiers</span></header>
+<h1>Connectez vos dossiers.</h1><p>Choisissez où chercher, puis retrouvez vos médias dans Graphics. Aucun fichier n’est envoyé.</p>
+<p class="local-explanation">Cette fenêtre appartient à l’application sur votre ordinateur. Graphics reste votre site en ligne.</p>
+<p id="message" role="status"></p>
+<section><h2>1 · Choisir les dossiers</h2><p>Un même dossier peut contenir plusieurs émissions, sur ce poste ou sur le réseau.</p>
+<button id="pick" class="primary">＋ Choisir un dossier</button><button id="cancel-pick" hidden>Annuler le choix</button><button id="refresh">Actualiser</button><p id="picker-help" hidden>Une fenêtre Windows ou Mac vous demande de choisir. Vous pouvez annuler ici à tout moment.</p><p id="empty" hidden>Aucun dossier autorisé. Aucun disque n’est parcouru.</p><div id="roots"></div></section>
+<section><h2>2 · Continuer dans Graphics</h2><p>Retrouvez les médias de votre conducteur dans « À faire ». Vous gardez le choix des correspondances.</p>
+<button id="continue" class="primary">Ouvrir Graphics et connecter ces dossiers →</button><p class="local-explanation">Continuez dans cette fenêtre. Vos autres onglets et préparations restent ouverts. Vous confirmez la connexion sur le site.</p>
+<details><summary>Je travaille dans un autre navigateur</summary><p>Affichez un code, puis dans Graphics : À faire → Retrouver les médias → Connecteur déjà ouvert.</p><button id="pair">Afficher un code de connexion</button><output id="code"></output><p id="code-time"></p><button id="copy" hidden>Copier le code</button></details></section>
+<footer>Lecture seule · Emplacements et index conservés sur ce poste.<br>Un dossier inaccessible est signalé ; aucun autre disque ne sera parcouru pour le remplacer.</footer>
+<details><summary>Gérer la connexion</summary><button id="revoke">Déconnecter les navigateurs associés</button><button id="quit">Arrêter le connecteur</button></details>
+</main></body></html>

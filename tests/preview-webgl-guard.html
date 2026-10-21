@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Qualification de la protection graphique</title>
+<style>body{font:16px system-ui;background:#162126;color:#e8eff1;margin:24px auto;max-width:1100px;padding:0 20px}button{padding:10px;margin:4px}#host{display:flex;gap:16px;flex-wrap:wrap}#host canvas,#host video{width:480px;max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}</style>
+<h1>Protection graphique de l’aperçu</h1>
+<p>Recette locale : aucune modification de projet, aucun export ni téléversement. Les mesures concernent uniquement ce navigateur et ce poste.</p>
+<button id="faults">Tester les erreurs graphiques</button><button id="cost">Mesurer le coût sur vidéo</button><button id="cancel" disabled>Annuler</button>
+<p id="status" role="status">Prêt.</p><div id="host"></div><pre id="result" aria-label="Résultats"></pre>
+<script type="module" src="./preview-webgl-guard-browser.ts"></script></html>

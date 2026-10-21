@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Recette locale — voix SRTB dans les exports</title>
+<style>body{font:16px system-ui;background:#151714;color:#f7f7f0;margin:32px;max-width:1000px}input,button{font:inherit;padding:14px}pre{white-space:pre-wrap;overflow-wrap:anywhere}#status{padding:16px;border:1px solid #77816c}.scene{position:fixed;left:-30000px;top:0}</style></head>
+<body><h1>Voix SRTB — mixage d’export réel</h1>
+<p>Contrôle local de cinq voix dans les moteurs Bande-annonce et Tout de suite. Les fichiers restent sur ce poste ; seul le rapport chiffré est enregistré par le serveur de recette local.</p>
+<label>Choisir Mardi, Demain, Aujourd’hui, Ce soir et Tout de suite
+<input id="files" type="file" accept="audio/mpeg,.mp3" multiple></label>
+<button id="run" disabled>Contrôler les cinq mixages</button>
+<p id="status" role="status">En attente des cinq fichiers.</p><pre id="result"></pre>
+<script type="module" src="./real-voice-mix-qualification.ts"></script></body></html>

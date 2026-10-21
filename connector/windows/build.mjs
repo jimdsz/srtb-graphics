@@ -1,0 +1,41 @@
+// Generates a LOCAL QUALIFICATION artifact, never a production download.
+// Inputs are vendor archives already downloaded and verified over official HTTPS.
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import {createHash} from 'node:crypto';
+import {execFile} from 'node:child_process';
+import {promisify} from 'node:util';
+const run=promisify(execFile),repo=path.resolve(import.meta.dirname,'../..');
+const dep=path.join(repo,'.tools/connector-packaging');
+const runtime=path.join(dep,'node-v24.21.0/node-v24.21.0-win-x64');
+const compiler=path.join(dep,'nsis-3.13/nsis-3.13/makensis.exe');
+const hash=async file=>createHash('sha256').update(await fs.readFile(file)).digest('hex');
+if(process.platform!=='win32')throw Error('Windows build host required.');
+if(await hash(path.join(dep,'node-v24.21.0-win-x64.zip'))!=='158f7685b44de51f6c0df1d153526cbcd3e1bc739a8dfc607721cef75de9e541')throw Error('Node archive differs from official SHA256.');
+if(await hash(path.join(runtime,'node.exe'))!=='ba4e6d110e8c1592a1ecd390f6b05f3da124b13871a5be62b341a07a853c6c32')throw Error('Node executable differs from official SHA256.');
+const base=path.join(repo,'.qa-delivery');await fs.mkdir(base,{recursive:true});
+const output=await fs.mkdtemp(path.join(base,'connector-windows-'));
+const payload=path.join(output,'payload');await fs.mkdir(path.join(payload,'connector/ui'),{recursive:true});
+await import('../../scripts/build-connector-matching.mjs');
+const sources=['main.mjs','core.mjs','matching.bundle.mjs','server.mjs','media-engine.mjs','media-preparation.mjs','ui/index.html','ui/app.js','ui/app.css'];
+for(const name of sources)await fs.copyFile(path.join(repo,'connector',name),path.join(payload,'connector',name));
+await fs.copyFile(path.join(runtime,'node.exe'),path.join(payload,'node.exe'));
+await fs.copyFile(path.join(runtime,'LICENSE'),path.join(payload,'NODE-LICENSE.txt'));
+await fs.copyFile(path.join(import.meta.dirname,'READ-ME.txt'),path.join(payload,'READ-ME.txt'));
+const files=['node.exe','NODE-LICENSE.txt','READ-ME.txt',...sources.map(name=>'connector/'+name)];
+const hashes=Object.fromEntries(await Promise.all(files.map(async name=>[name,await hash(path.join(payload,name))])));
+const manifest=path.join(output,'payload-hashes.json');await fs.writeFile(manifest,JSON.stringify(hashes,null,2));
+await run('C:/Windows/Microsoft.NET/Framework64/v4.0.30319/csc.exe',['/nologo','/target:winexe','/platform:anycpu','/codepage:65001',`/out:${path.join(payload,'GraphicsConnector.exe')}`,`/resource:${manifest},payload-hashes.json`,'/reference:System.Windows.Forms.dll','/reference:System.Drawing.dll','/reference:System.Web.Extensions.dll',path.join(import.meta.dirname,'Launcher.cs')],{windowsHide:true});
+await run(path.join(payload,'GraphicsConnector.exe'),['--verify-only'],{windowsHide:true});
+files.push('GraphicsConnector.exe');
+const deletion=path.join(output,'remove-files.nsh');
+await fs.writeFile(deletion,files.map(name=>{
+ const target=`$INSTDIR\\${name.replaceAll('/','\\')}`;
+ return `IfFileExists "${target}" 0 +2\nDelete "${target}"`;
+}).join('\n'));
+const installer=path.join(output,'SRTB-Graphics-Connector-0.3.0-windows-x64-VALIDATION.exe');
+const result=await run(compiler,['/NOCONFIG','/V2',`/DPAYLOAD=${payload}`,`/DOUTPUT=${installer}`,`/DDELETE_LIST=${deletion}`,path.join(import.meta.dirname,'installer.nsi')],{windowsHide:true,maxBuffer:1024*1024});
+if(result.stderr)console.log(result.stderr);
+const report={schema:1,status:'local-qualification-only-unsigned',node:'24.21.0',arch:'x64',installer:path.basename(installer),sha256:await hash(installer),bytes:(await fs.stat(installer)).size,nsisCompilerSha256:await hash(compiler),payloadHashes:hashes,uiInstallTested:false,publicDownloadAllowed:false};
+await fs.writeFile(path.join(output,'build.json'),JSON.stringify(report,null,2));
+console.log(JSON.stringify({output,installer,sha256:report.sha256,bytes:report.bytes,publicDownloadAllowed:false}));

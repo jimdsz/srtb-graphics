@@ -1,0 +1,35 @@
+// Entire Studio, with in-memory API doubles. No real account or uploaded media.
+import {createRoot} from 'react-dom/client';
+import Studio from '../src/studio/Studio';
+import {api} from '../src/studio/api';
+import {activeChannelId} from '../src/studio/channel-context';
+import {plannerAPI} from '../src/studio/day-planner-api';
+import {broadcastTemplates,templateDefaults} from '../src/studio/domain';
+import type {Member,Project} from '../src/studio/domain';
+import type {Channel} from '../src/studio/channel-model';
+import '../src/studio/studio.css';
+import '../src/studio/theme.css';
+import '../src/studio/responsive.css';
+import '../src/studio/workbench.css';
+const role=new URLSearchParams(location.search).get('role')==='designer'?'designer':'admin';
+const member:Member={email:'channel-navigation@example.test',name:'Poste de recette',role,active:1};
+const stamp='2026-09-30T00:00:00Z';
+const channels:Channel[]=[{id:'benin-tv',name:'Bénin TV',accent:'#EFBD32',logo:'',timezone:'Africa/Porto-Novo',revision:1,archived:0,canManage:role==='admin'}];
+const evidence={creates:[] as unknown[],reads:[] as unknown[]};Object.assign(window,{channelNavigationEvidence:evidence});
+function read(resource:string){const channel=activeChannelId();evidence.reads.push({resource,channel});return channel;}
+api.channels=async()=>structuredClone(channels);
+api.createChannel=async data=>{evidence.creates.push({...data});const channel={...data,id:crypto.randomUUID(),logo:'',revision:1,archived:0,canManage:true};channels.push(channel);return structuredClone(channel);};
+api.catalogue=async()=>read('templates')==='benin-tv'?broadcastTemplates:[];
+const template=broadcastTemplates.find(template=>template.id==='BTV_Relais_Antenne')!;
+const project:Project={id:'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',title:'Version à relire',template_id:template.id,template_version:template.version,library_version:template.libraryVersion,data:templateDefaults(template),created_by:member.email,updated_by:member.email,created_at:stamp,updated_at:stamp,status:'submitted',revision:2,archived:0,visibility:'private',channel_id:'benin-tv'};
+const projects:Project[]=[project,{...project,id:'cccccccc-cccc-4ccc-8ccc-cccccccccccc',title:'Version à corriger',status:'rejected',revision:3},{...project,id:'dddddddd-dddd-4ddd-8ddd-dddddddddddd',title:'Version approuvée',status:'approved',revision:4}];
+api.projects=async(_archived,_next,scope,status)=>{const channel=read('projects');evidence.reads.push({resource:'project-query',channel,scope,status});return {projects:channel==='benin-tv'?structuredClone(projects.filter(project=>!status||project.status===status)):[],next:null};};
+api.project=async id=>{read('project');const project=projects.find(project=>project.id===id);if(!project)throw Error('Projet absent du banc.');return structuredClone(project);};
+api.save=async(project,title,data)=>{read('save');const next={...project,title,data,status:'draft' as const,revision:project.revision+1};projects.splice(projects.findIndex(item=>item.id===project.id),1,next);return structuredClone(next);};
+api.revisions=async()=>[];api.comments=async()=>[];
+api.media=async()=>read('media')==='benin-tv'?[{id:'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',name:'Voix Bénin TV.wav',mime_type:'audio/wav',status:'ready',bytes:1024,created_by:member.email,created_at:stamp}]:[];
+api.programmes=async()=>{read('programmes');return [];};api.transfers=async()=>[];
+api.members=async()=>[member];api.channelMembers=async()=>[member];
+api.search=async()=>({projects:[],media:[],programmes:[]});
+plannerAPI.overview=async(view,date)=>({view,date,items:[],next:null});
+createRoot(document.getElementById('root')!).render(<Studio member={member}/>);

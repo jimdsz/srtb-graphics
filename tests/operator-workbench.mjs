@@ -1,0 +1,87 @@
+import {chromium,expect} from '@playwright/test';
+import assert from 'node:assert/strict';
+import {mkdir,writeFile} from 'node:fs/promises';
+import {resolve} from 'node:path';
+
+const base=process.argv[2]||'http://127.0.0.1:5208';
+const directory=resolve('reports/operator-workbench');
+await mkdir(directory,{recursive:true});
+const browser=await chromium.launch({channel:'msedge',headless:true});
+const results=[],errors=[],apiRequests=[];
+try{
+  const page=await browser.newPage({viewport:{width:1440,height:1000}});
+  page.on('pageerror',error=>errors.push(error.message));
+  await page.route('**/api/**',route=>{apiRequests.push(route.request().url());return route.fulfill({status:500,contentType:'application/json',body:JSON.stringify({error:'Unexpected API request in isolated operator fixture'})});});
+  await page.goto(base+'/tests/operator-workbench.html');
+  await page.locator('[data-project-id="operator-fixture"] .project-row-title').click();
+  const title=page.getByRole('textbox',{name:'Nom du projet',exact:true});
+  await expect(title).toHaveValue('Le rendez-vous du soir');
+  await expect(page.getByText('Toutes les modifications sont enregistrées',{exact:true})).toBeVisible();
+  const play=page.getByRole('button',{name:'Lire l’aperçu',exact:true});
+  await expect(play).toBeEnabled({timeout:30000});
+  await play.click();
+  await expect(page.getByRole('button',{name:'Mettre l’aperçu en pause',exact:true})).toHaveText('Pause');
+  await page.getByRole('button',{name:'Mettre l’aperçu en pause',exact:true}).click();
+  await expect(page.getByRole('button',{name:'Reprendre l’aperçu',exact:true})).toHaveText('Reprendre');
+  await page.getByRole('button',{name:'Reprendre l’aperçu',exact:true}).click();
+  await page.getByRole('button',{name:'Mettre l’aperçu en pause',exact:true}).click();
+  await page.getByText('Précision',{exact:true}).click();
+  await page.getByRole('spinbutton',{name:'Temps d’inspection en secondes',exact:true}).fill('4');
+  await page.getByRole('button',{name:'Voir cette image',exact:true}).click();
+  await page.getByText('Précision',{exact:true}).click();
+  results.push('Lecture → Pause → Reprendre : commandes et libellés cohérents avec le transport réel');
+
+  await title.fill('Le rendez-vous du soir · modifié');
+  await expect(page.getByText('Modifications non enregistrées',{exact:true})).toBeVisible();
+  await page.getByRole('button',{name:'Enregistrer les modifications',exact:true}).click();
+  await expect(page.getByText('Toutes les modifications sont enregistrées',{exact:true})).toBeVisible();
+  await expect(page.locator('.workspace-metadata')).toContainText('Révision 2');
+  await title.fill('Saisie à conserver');
+  await page.locator('.workspace-back').click();
+  await expect(page.getByRole('dialog',{name:'Conserver vos modifications ?',exact:true})).toBeVisible();
+  await page.getByRole('button',{name:'Rester sur le projet',exact:true}).click();
+  await expect(title).toHaveValue('Saisie à conserver');
+  results.push('État non enregistré, sauvegarde de recette et garde de sortie conservant la saisie');
+
+  const tabs=page.getByRole('navigation',{name:'Panneaux de l’éditeur',exact:true});
+  await tabs.getByRole('button',{name:'Historique',exact:true}).click();
+  await expect(page.getByRole('heading',{name:'Commentaires',exact:true})).toBeVisible();
+  await tabs.getByRole('button',{name:'Réglages',exact:true}).click();
+  for(const [theme,width,height] of [['dark',1440,1000],['light',1440,1000],['dark',1024,900],['dark',768,1000],['dark',390,844],['light',390,844],['dark',320,740]]){
+    await page.setViewportSize({width,height});
+    await page.evaluate(theme=>document.documentElement.dataset.theme=theme,theme);
+    await page.evaluate(()=>scrollTo(0,0));
+    const overflow=await page.evaluate(()=>({page:document.documentElement.scrollWidth>innerWidth+1,controls:[...document.querySelectorAll('.workspace-top button,.workspace-tools button,.workspace-tabs button,.monitor-transport button')].filter(el=>el.scrollWidth>el.clientWidth+2).map(el=>el.textContent)}));
+    assert.equal(overflow.page,false,JSON.stringify({theme,width,...overflow}));
+    assert.deepEqual(overflow.controls,[],JSON.stringify({theme,width,...overflow}));
+    const smallTargets=await page.locator('.workspace-top button,.workspace-tabs button,.monitor-transport button').evaluateAll(els=>els.filter(el=>el.getBoundingClientRect().height<43.5).map(el=>el.textContent));
+    assert.deepEqual(smallTargets,[],`Touch targets ${width}`);
+    await page.screenshot({path:resolve(directory,`operator-${theme}-${width}.png`),fullPage:true,animations:'disabled'});
+    results.push(`${theme} ${width}px : aucun débordement, commandes ≥ 44 px`);
+  }
+  await page.emulateMedia({reducedMotion:'reduce'});
+  await page.locator('.workspace-export').click();
+  await expect(tabs.getByRole('button',{name:'Exporter',exact:true})).toHaveAttribute('aria-current','page');
+  await expect(page.getByRole('button',{name:'Télécharger la vidéo',exact:true})).toBeEnabled();
+  await page.getByRole('radio',{name:'MOV · ProRes 4444 · Transparence alpha',exact:true}).check();
+  await expect(page.getByRole('button',{name:'Télécharger le MOV',exact:true})).toBeEnabled();
+  await page.screenshot({path:resolve(directory,'operator-export-320.png'),fullPage:true,animations:'disabled'});
+  results.push('Accès à l’export et changement de format à 320 px avec mouvement réduit');
+  await page.goto(base+'/tests/operator-workbench.html?activity=pending');
+  await expect(page.locator('.activity .busy-indicator')).toHaveCount(1);
+  await expect(page.locator('.activity canvas')).toHaveCount(0);
+  await expect(page.getByRole('progressbar')).toHaveCount(0);
+  assert.equal(await page.locator('.busy-indicator').evaluate(el=>el.getAnimations().filter(animation=>animation.playState==='running').length),0);
+  await page.emulateMedia({reducedMotion:'no-preference'});
+  await expect(page.locator('.activity canvas')).toHaveCount(1);
+  await page.emulateMedia({reducedMotion:'reduce'});
+  await expect(page.locator('.activity canvas')).toHaveCount(0);
+  await expect(page.locator('.activity .busy-indicator')).toHaveCount(1);
+  await page.goto(base+'/tests/operator-workbench.html?activity=determinate');
+  await expect(page.getByRole('progressbar',{name:'Préparation de recette',exact:true})).toHaveAttribute('aria-valuenow','61');
+  assert.equal(await page.locator('.progress-fill').evaluate(el=>el.getAnimations().filter(animation=>animation.playState==='running').length),0);
+  results.push('Attente sans faux pourcentage, orb lazy désactivé en direct par mouvement réduit, progression mesurée accessible sans animation');
+  assert.deepEqual(errors,[]);assert.deepEqual(apiRequests,[]);
+  await writeFile(resolve(directory,'results.json'),JSON.stringify({passed:true,results,pageErrors:errors,apiRequests},null,2));
+  console.log(JSON.stringify({passed:true,results},null,2));
+}finally{await browser.close();}

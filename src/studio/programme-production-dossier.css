@@ -1,0 +1,42 @@
+.native-dialog:has(.programme-production-dossier){width:min(880px,calc(100vw - 32px));max-width:880px;padding:28px}
+.programme-production-dossier{color:var(--ink);min-width:0}
+.programme-dossier-eyebrow{margin:0 32px 8px 0;color:var(--muted);font-size:.75rem;line-height:1.5}
+.programme-production-dossier h2{margin:0 36px 8px 0;font-size:1.375rem;letter-spacing:-.02em}
+.programme-dossier-title{font-weight:600;font-size:.9375rem;line-height:1.4;margin:0 0 4px;overflow-wrap:anywhere}
+.programme-production-dossier header>small,.programme-dossier-footnote,.programme-dossier-project small,.programme-dossier-occurrences small{display:block;color:var(--muted);font-size:.75rem;line-height:1.5;overflow-wrap:anywhere}
+.programme-dossier-notice{margin:16px 0 0;padding:10px 12px;border-left:2px solid var(--brand-gold);background:var(--surface-subtle);font-size:.8125rem;line-height:1.5}
+.programme-dossier-sections{display:flex;gap:4px;border-bottom:1px solid var(--line);margin:20px 0 0;flex-wrap:wrap}
+.programme-dossier-sections button{min-height:44px;padding:8px 12px;border-radius:4px 4px 0 0;border:0;border-bottom:2px solid transparent;background:transparent;font-size:.8125rem}
+.programme-dossier-sections button[aria-pressed=true]{border-bottom-color:var(--brand-gold);color:var(--ink);background:var(--surface-subtle);font-weight:600}
+.programme-dossier-toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:16px 0}
+.programme-dossier-toolbar p,.programme-dossier-history>p,.programme-dossier-count,.programme-dossier-empty,.programme-dossier-loading{font-size:.8125rem;line-height:1.5;color:var(--muted);margin:0}
+.programme-production-dossier button{min-height:44px;flex-shrink:0}
+.programme-production-dossier button:focus-visible,.programme-production-dossier summary:focus-visible{outline:2px solid var(--focus,var(--brand-gold));outline-offset:3px}
+.programme-dossier-toolbar button{font-size:.75rem}
+.programme-dossier-occurrences,.programme-dossier-projects{list-style:none;margin:0;padding:0}
+.programme-dossier-occurrences>li{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.programme-dossier-occurrences>li>div{min-width:0}
+.programme-dossier-occurrences strong,.programme-dossier-project-main strong{font-size:.875rem;font-weight:600;line-height:1.45;overflow-wrap:anywhere}
+.programme-dossier-occurrences p{margin:3px 0;font-size:.8125rem;line-height:1.5;overflow-wrap:anywhere}
+.programme-dossier-occurrences span{display:block;font-size:.75rem;color:var(--muted);line-height:1.5}
+.programme-dossier-occurrences button,.programme-dossier-project-main button{font-size:.75rem}
+.programme-production-dossier summary{min-height:44px;align-content:center;cursor:pointer;font-size:.75rem;line-height:1.5;color:var(--muted)}
+.programme-dossier-occurrences details ul{font-size:.75rem;line-height:1.7;padding-left:20px}
+.programme-dossier-project{padding:16px 0;border-bottom:1px solid var(--line)}
+.programme-dossier-project-main{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.programme-dossier-project-main>div{min-width:0}
+.programme-dossier-project-main p{margin:5px 0;font-size:.75rem;line-height:1.5;color:var(--muted);overflow-wrap:anywhere}
+.programme-dossier-status{display:inline-block;margin-left:8px;border:1px solid var(--line);padding:1px 6px;border-radius:4px;font-size:.6875rem;line-height:1.5;color:var(--muted);white-space:nowrap}
+.programme-dossier-detail,.programme-dossier-history-warning{font-size:.75rem;line-height:1.5;margin:8px 0;color:var(--muted)}
+.programme-dossier-history-warning{border-left:2px solid var(--brand-gold);padding-left:10px}
+.programme-dossier-origins ul{list-style:none;padding:0 0 0 12px;margin:0;border-left:1px solid var(--line);display:grid;gap:10px}
+.programme-dossier-origins li>*{display:block;font-size:.75rem;line-height:1.5;overflow-wrap:anywhere}
+.programme-dossier-derivation{margin:10px 0;padding-left:12px;border-left:1px solid var(--line)}
+.programme-dossier-derivation p{margin:0 0 6px;font-size:.75rem;line-height:1.5}
+.programme-dossier-derivation span{display:block;color:var(--muted);overflow-wrap:anywhere}
+.programme-dossier-history{margin-top:20px}
+.programme-dossier-history h3{font-size:.875rem;margin:0 0 6px;line-height:1.5}
+.programme-dossier-more{margin-top:16px;width:100%;font-size:.8125rem}
+.programme-dossier-footnote{margin:20px 0 0}
+.programme-production-dossier footer{margin-top:20px;border-top:1px solid var(--line);padding-top:16px;display:flex;justify-content:flex-end}
+@media(max-width:550px){.native-dialog:has(.programme-production-dossier){width:calc(100vw - 16px);padding:18px 14px}.programme-dossier-sections{display:grid;grid-template-columns:1fr 1fr}.programme-dossier-sections button{padding:8px}.programme-dossier-toolbar{align-items:flex-start;gap:10px}.programme-dossier-toolbar button{width:44px;height:44px;padding:10px}.programme-dossier-toolbar button>span{display:none}.programme-dossier-toolbar button svg{width:18px;height:18px}.programme-dossier-occurrences>li,.programme-dossier-project-main{flex-wrap:wrap;gap:10px}.programme-dossier-occurrences>li>div,.programme-dossier-project-main>div{flex-basis:100%}.programme-dossier-occurrences>li>button,.programme-dossier-project-main>button{margin-left:auto}.programme-dossier-status{margin-left:0;margin-top:4px;display:table}.programme-production-dossier footer button{width:100%}}

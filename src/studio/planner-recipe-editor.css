@@ -1,0 +1,21 @@
+.planner-recipe-editor{min-width:0;color:var(--ink)}
+.planner-recipe-editor>h2{margin-bottom:8px}.planner-recipe-editor>h2:focus{outline:none}
+.planner-recipe-editor fieldset{border:0;padding:0;margin:0;min-width:0}
+.planner-recipe-context{font-size:12px;color:var(--muted);line-height:1.5}
+.planner-recipe-editor select{max-width:100%;width:100%;min-width:0}
+.planner-recipe-origin{display:grid;gap:4px;border-block:1px solid var(--line);margin:16px 0;padding:12px 0;font-size:12px;color:var(--muted)}
+.planner-recipe-origin>strong{color:var(--ink)}
+.planner-recipe-editor .planner-recipe-kinds{display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;margin-top:16px}
+.planner-recipe-kinds legend{font-weight:600;margin-bottom:8px}
+.planner-recipe-editor .check{display:flex;align-items:center;gap:10px;min-height:44px;font-weight:400}
+.planner-recipe-editor input[type=checkbox],.planner-recipe-editor input[type=radio]{width:18px;height:18px;min-height:18px;flex:none;margin:0}
+.planner-recipe-comparison{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;padding:14px 0;margin-block:8px;border-block:1px solid var(--line)}
+.planner-recipe-comparison>div{display:grid;gap:6px;min-width:0;overflow-wrap:anywhere}
+.planner-recipe-comparison small{color:var(--muted)}
+.planner-recipe-comparison strong{font-size:14px;line-height:1.5}
+.planner-recipe-memory{margin-top:24px;padding-top:16px;border-top:1px solid var(--line)}
+.planner-recipe-memory h3{font-size:15px;margin-bottom:8px}
+.planner-recipe-editor button{min-height:44px;white-space:normal}
+.planner-recipe-editor-footer{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:20px;padding-top:12px;border-top:1px solid var(--line)}
+.planner-recipe-edit-item{border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:10px}.planner-recipe-edit-item>.planner-recipe-proposal{border:0}.planner-recipe-edit-item>button{margin-left:36px}
+@media(max-width:520px){.planner-recipe-editor .planner-recipe-kinds{grid-template-columns:1fr}.planner-recipe-comparison{grid-template-columns:1fr;gap:10px}.planner-recipe-comparison>svg{transform:rotate(90deg)}.planner-recipe-editor .row{align-items:stretch}.planner-recipe-editor .row>button{flex:1}.planner-recipe-edit-item>button{margin-left:0}}

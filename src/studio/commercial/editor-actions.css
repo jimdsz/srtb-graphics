@@ -1,0 +1,12 @@
+.commercial-app .commercial-document-actions{margin:0 0 16px;gap:8px}
+.commercial-app .commercial-danger{color:var(--danger,#c95046);border-color:currentColor;background:transparent}
+.commercial-app .commercial-dialog{width:min(560px,calc(100vw - 32px));max-height:calc(100dvh - 40px);overflow:auto;box-sizing:border-box;padding:26px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);box-shadow:0 18px 70px #0005}
+.commercial-dialog::backdrop{background:#0009}
+.commercial-dialog h2{font-size:22px;line-height:1.25;margin:0 0 18px}
+.commercial-dialog p{font-size:14px;line-height:1.6;margin:14px 0;color:var(--muted)}
+.commercial-dialog label{display:flex;flex-direction:column;gap:8px;font-size:14px}
+.commercial-dialog input{width:100%;min-width:0}
+.commercial-dialog-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:10px;margin-top:24px}
+.commercial-dialog-actions button{min-height:42px;font-size:13px}
+.commercial-sidebar>.commercial-create-example{font-size:12px;line-height:1.4;padding:10px 8px;white-space:normal}
+@media(max-width:650px){.commercial-sidebar>.commercial-create-example{grid-column:1/-1}}

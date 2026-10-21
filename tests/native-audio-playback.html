@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="fr">
+<meta charset="utf-8">
+<title>Diagnostic audio natif local</title>
+<style>body{font:16px system-ui;background:#171b1d;color:#eef1ed;max-width:900px;margin:32px auto;padding:20px}button,input{padding:12px;margin:8px}pre{white-space:pre-wrap}audio{display:block;width:100%}</style>
+<h1>Lecture audio native — sans Graphics</h1>
+<p>Le fichier reste local. Aucun moteur de template, API de production, téléversement ou son synthétique.</p>
+<label>Fichier autorisé <input id="file" type="file" accept="audio/*"></label>
+<audio id="audio" controls preload="metadata"></audio>
+<button id="play" disabled>Lire le fichier</button>
+<button id="pause" disabled>Pause</button>
+<pre id="status" role="status">Choisir un fichier.</pre>
+<script type="module">
+const input=document.querySelector('#file'),audio=document.querySelector('#audio'),play=document.querySelector('#play'),pause=document.querySelector('#pause'),status=document.querySelector('#status');
+let url='',events=[];
+function report(event){
+ if(event)events.push({event,time:audio.currentTime,at:Math.round(performance.now())});
+ status.textContent=JSON.stringify({name:input.files?.[0]?.name,duration:Number.isFinite(audio.duration)?audio.duration:null,currentTime:audio.currentTime,paused:audio.paused,ended:audio.ended,readyState:audio.readyState,error:audio.error?{code:audio.error.code,message:audio.error.message}:null,events:events.slice(-20)},null,2);
+}
+for(const event of ['loadedmetadata','canplay','play','playing','pause','waiting','stalled','ended','error'])audio.addEventListener(event,()=>report(event));
+audio.addEventListener('timeupdate',()=>report());
+input.onchange=()=>{audio.pause();if(url)URL.revokeObjectURL(url);const file=input.files?.[0];url=file?URL.createObjectURL(file):'';events=[];audio.src=url;play.disabled=pause.disabled=!file;report('selected');};
+play.onclick=()=>{audio.play().catch(error=>{status.textContent='Lecture refusée : '+error.message;});};
+pause.onclick=()=>audio.pause();
+window.addEventListener('pagehide',()=>{audio.pause();if(url)URL.revokeObjectURL(url);});
+</script>
+</html>

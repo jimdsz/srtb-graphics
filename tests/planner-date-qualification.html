@@ -1,0 +1,8 @@
+<!doctype html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Recette locale — choix de médias datés</title><script>
+// Visible diagnostic evidence for this local fixture, including iframe errors.
+const fixtureErrors=[];
+function showFixtureErrors(){const output=document.querySelector('#browser-errors');if(output)output.textContent=fixtureErrors.join('\n\n')||'Aucune erreur de page capturée.';}
+window.addEventListener('error',event=>{fixtureErrors.push(event.error?.stack||`${event.message} ${event.filename}:${event.lineno}`);showFixtureErrors();});
+window.addEventListener('unhandledrejection',event=>{fixtureErrors.push(event.reason?.stack||String(event.reason));showFixtureErrors();});
+window.addEventListener('DOMContentLoaded',showFixtureErrors);
+</script></head><body><div id="root"></div><pre id="browser-errors"></pre><script type="module" src="/tests/planner-date-qualification.tsx"></script></body></html>

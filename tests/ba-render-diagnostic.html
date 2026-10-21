@@ -1,0 +1,19 @@
+<!doctype html><html lang="fr"><meta charset="utf-8"><title>Diagnostic local BA</title>
+<style>body{font:16px system-ui;background:#222;color:white;margin:20px}button{padding:12px}#frame{width:960px;height:540px}.samples{display:flex;flex-wrap:wrap;gap:16px}.sample{width:480px}.sample canvas,.sample video{width:480px;height:270px}pre{white-space:pre-wrap}</style>
+<h1>Diagnostic local BA — aucune écriture de projet</h1><button id="inspect" disabled>Inspecter 19,84 s</button><button id="play" disabled>Lire la BA</button><pre id="status">Chargement…</pre>
+<div id="frame"></div><div class="samples"><div class="sample"><h2>Vidéo source décodée</h2><canvas id="raw" width="1920" height="1080"></canvas></div><div class="sample"><h2>Pixels injectés dans le modèle</h2><canvas id="graded" width="1920" height="1080"></canvas></div></div>
+<script type="module">
+const library='/library/v1.7.0/BTV_BA_1P/';
+const {default:Graphic}=await import(/* @vite-ignore */ library+'graphic.mjs');
+const {DEFAULTS}=await import(/* @vite-ignore */ library+'config.mjs');
+import {installGraphicCompatibility} from '/src/studio/graphic-compatibility.ts';
+customElements.define('ba-diagnostic',Graphic);
+const g=document.createElement('ba-diagnostic'),status=document.querySelector('#status'),inspect=document.querySelector('#inspect'),play=document.querySelector('#play');document.querySelector('#frame').append(g);
+const data={...DEFAULTS};for(const key of Object.keys(data))if(/^_audio_.*enabled$/.test(key))data[key]=false;
+if(!new URL(location.href).searchParams.has('original'))installGraphicCompatibility(g,{id:'BTV_BA_1P',version:'1.0.3',libraryVersion:'1.7.0',module:new URL(library+'graphic.mjs',location.href).href});
+let copying=false;
+function copy(){const n=g.media.node('body');if(n?.readyState>=2){document.querySelector('#raw').getContext('2d').drawImage(n,0,0,1920,1080);document.querySelector('#graded').getContext('2d').drawImage(g.scene.canvases.targets.body[0],0,0);status.textContent=JSON.stringify({frame:g.state.currentFrame,phase:g.state.phase,sourceTime:n.currentTime,width:n.videoWidth,height:n.videoHeight,errors:g.state.errors});}if(copying)requestAnimationFrame(copy);}
+try{const loaded=await g.load({renderType:'realtime',previewMuted:true,data});if(loaded.statusCode>=400)throw Error(loaded.statusMessage);inspect.disabled=play.disabled=false;status.textContent='Prêt';}catch(e){status.textContent=e.stack;}
+inspect.onclick=async()=>{copying=false;await g.goToTime({seconds:19.84});copy();};
+play.onclick=()=>{copying=true;void g.playAction().catch(e=>{status.textContent=e.stack});copy();};
+</script></html>
