@@ -1,12 +1,32 @@
-# SRTB Graphics
+<p align="center">
+  <img src="docs/images/cover-fr.png" width="100%" alt="SRTB Graphics — L’habillage télévisé, dans votre navigateur. Créé par Jimmy de Souza." />
+</p>
 
-**Un espace web pour préparer les habillages télévisés et organiser la production audiovisuelle.**
+<p align="center">
+  <a href="README.md">English</a> · <strong>Français</strong>
+  <br />
+  <a href="docs/PORTFOLIO.md">Le projet</a> · <a href="docs/ARCHITECTURE.md">Architecture</a> · <a href="docs/SETUP.md">Développement</a> · <a href="docs/VERIFICATION.md">Vérifications</a>
+</p>
 
-[English](README.md) · [Français](README.fr.md) · [Étude de cas](docs/PORTFOLIO.md) · [Résultats des vérifications](docs/VERIFICATION.md)
+<h1 align="center">Du programme au livrable validé.</h1>
 
-Créé par **Jimmy de Souza** · React · TypeScript · WebCodecs · Cloudflare Workers
+<p align="center">Un espace partagé pour les habillages, la préparation et la production audiovisuelle.<br />Conçu et développé par <a href="https://github.com/jimdsz"><strong>Jimmy de Souza</strong></a>.</p>
 
-![Bibliothèque de modèles de SRTB Graphics](docs/images/catalogue.png)
+<br />
+
+![SRTB Graphics — bibliothèque réelle des modèles](docs/images/catalogue.png)
+
+<p align="center"><sub>Application réelle · Données locales de démonstration · Interface française</sub></p>
+
+<br />
+
+<table>
+  <tr>
+    <td width="33%" valign="top"><h3>01 / Créer</h3><p>Partir d’un modèle d’habillage. Ajuster textes, graphisme, médias et audio avec un aperçu direct.</p></td>
+    <td width="33%" valign="top"><h3>02 / Organiser</h3><p>Relier émissions, tâches et médias. Garder les révisions et les responsabilités de relecture visibles.</p></td>
+    <td width="33%" valign="top"><h3>03 / Livrer</h3><p>Préparer les formats TV et sociaux. Exporter avec progression, annulation et contrôles explicites.</p></td>
+  </tr>
+</table>
 
 ## Le projet
 
@@ -28,7 +48,7 @@ Ce dépôt présente le code de l’application et ses choix techniques. **Il s�
 
 L’application prépare les fichiers **hors antenne** : elle n’envoie pas de commande à un système de diffusion. Choisir un fichier local ne le téléverse pas automatiquement ; le partage cloud est une action distincte.
 
-## Aperçu
+## Pensé pour la production
 
 ![Portail des outils SRTB](docs/images/portal.png)
 

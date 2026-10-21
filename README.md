@@ -1,12 +1,32 @@
-# SRTB Graphics
+<p align="center">
+  <img src="docs/images/cover-en.png" width="100%" alt="SRTB Graphics — Broadcast graphics, in your browser. Created by Jimmy de Souza." />
+</p>
 
-**A browser-based workspace for broadcast graphics and audiovisual production.**
+<p align="center">
+  <strong>English</strong> · <a href="README.fr.md">Français</a>
+  <br />
+  <a href="docs/PORTFOLIO.md">The story</a> · <a href="docs/ARCHITECTURE.md">Architecture</a> · <a href="docs/SETUP.md">Development</a> · <a href="docs/VERIFICATION.md">Verification</a>
+</p>
 
-[English](README.md) · [Français](README.fr.md) · [Project case study](docs/PORTFOLIO.md) · [Verification notes](docs/VERIFICATION.md)
+<h1 align="center">From a programme brief to a reviewed video.</h1>
 
-Created by **Jimmy de Souza** · React · TypeScript · WebCodecs · Cloudflare Workers
+<p align="center">A shared workspace for broadcast graphics, production planning and audiovisual delivery.<br />Designed and developed by <a href="https://github.com/jimdsz"><strong>Jimmy de Souza</strong></a>.</p>
 
-![SRTB Graphics template catalogue](docs/images/catalogue.png)
+<br />
+
+![SRTB Graphics — actual template catalogue](docs/images/catalogue.png)
+
+<p align="center"><sub>Actual application · Local demonstration data · French-language interface</sub></p>
+
+<br />
+
+<table>
+  <tr>
+    <td width="33%" valign="top"><h3>01 / Create</h3><p>Start with a broadcast template. Shape the text, graphics, media and audio with a live preview.</p></td>
+    <td width="33%" valign="top"><h3>02 / Coordinate</h3><p>Connect programmes, tasks and media. Keep revisions and review responsibilities visible.</p></td>
+    <td width="33%" valign="top"><h3>03 / Deliver</h3><p>Prepare TV and social formats. Export files with explicit progress, cancellation and checks.</p></td>
+  </tr>
+</table>
 
 ## The project
 
@@ -28,7 +48,7 @@ This repository presents the application source and its engineering decisions. *
 
 The tool prepares files **off-air**. It does not send playout commands to a live broadcast system. Selecting a local file does not upload it automatically; cloud sharing is a separate action.
 
-## A closer look
+## Built for the production desk
 
 ![SRTB tools portal](docs/images/portal.png)
 
